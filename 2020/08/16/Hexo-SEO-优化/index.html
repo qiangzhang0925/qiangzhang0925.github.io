@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200816172352.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200816190017.png">
 <meta property="article:published_time" content="2020-08-16T08:31:49.000Z">
-<meta property="article:modified_time" content="2020-08-16T11:30:51.023Z">
+<meta property="article:modified_time" content="2020-08-16T11:48:00.761Z">
 <meta property="article:author" content="george.zhang">
 <meta property="article:tag" content="hexo">
 <meta property="article:tag" content="SEO">
@@ -218,7 +218,7 @@
 </ol>
 </li>
 <li><strong>主动提交</strong><ol>
-<li>首先在普通收录的API提交下面得到相应token<img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200816172352.png" alt="图片替换文本" width="500" height="300" align="center" />       </li>
+<li>首先在普通收录的API提交下面得到相应token<img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200816172352.png" alt="baidu" width="500" height="300" align="center" />       </li>
 <li>在blog根目录下安装插件<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-baidu-url-submit</span> <span class="string">--save</span></span><br></pre></td></tr></table></figure></li>
 <li>最后在博客站点配置文件<code>_config.yml</code>，增加<code>baidu_url_submit</code>和<code>deploy</code>属性<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 百度主动推送</span></span><br><span class="line"><span class="attr">baidu_url_submit:</span></span><br><span class="line"><span class="attr">count:</span> <span class="number">10</span> <span class="comment">## 提交最新的 10 个链接</span></span><br><span class="line"><span class="attr">host:</span> <span class="string">georgezhang.top</span> <span class="comment">## 注意修改为你在百度站长平台中注册的域名</span></span><br><span class="line"><span class="attr">token:</span> <span class="string">XXX</span> <span class="comment">## 注意修改为你的秘钥</span></span><br><span class="line"><span class="attr">path:</span> <span class="string">baidu_urls.txt</span> <span class="comment">## 文本文档的地址  新链接会保存在此文本文档里</span></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">https://github.com/qiangzhang0925/qiangzhang0925.github.io.git</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">master</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">type:</span> <span class="string">baidu_url_submitter</span> </span><br></pre></td></tr></table></figure></li>
 </ol>
@@ -241,9 +241,9 @@
 <li><p>首先安装插件</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-generator-sitemap</span> <span class="string">--save</span></span><br></pre></td></tr></table></figure></li>
 <li><p>打开<code>_config.xml</code>,增加<code>sitemap</code>属性</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">baidusitemap:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">baduisitemap.xml</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br></pre></td></tr></table></figure></li>
 <li><p>提交sitemap</p>
-<img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200816190017.png" alt="图片替换文本" width="500" height="300" align="center" />  
+<img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200816190017.png" alt="google" width="500" height="300" align="center" />  
 
 </li>
 </ul>
@@ -536,19 +536,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">电视和电影</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SEO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">电视和电影</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
             
             <div class="clearfix"></div>
