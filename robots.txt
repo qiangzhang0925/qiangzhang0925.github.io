@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Allow: /tags/
+
+Disallow: /archives/
+Disallow: /categories/
+Disallow: /vendors/
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /vendors/
+Disallow: /fancybox/
+
+Sitemap: https://georgezhang.top/sitemap.xml
+Sitemap: https://georgezhang.top/baidusitemap.xml
+
