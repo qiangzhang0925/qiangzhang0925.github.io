@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://georgezhang.top">
-  <title>Category: 其他 | flipped的个人博客</title>
+  <title>什么是拥塞控制 | flipped的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="life gonna be like this way">
-<meta property="og:type" content="website">
-<meta property="og:title" content="flipped的个人博客">
-<meta property="og:url" content="https://georgezhang.top/categories/%E5%85%B6%E4%BB%96/index.html">
+  <meta name="description" content="拥塞控制一直是网络领域一个热点的问题，本文介绍了什么是拥塞控制，为什么要拥塞控制以及拥塞控制算法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是拥塞控制">
+<meta property="og:url" content="https://georgezhang.top/2020/%E4%BB%80%E4%B9%88%E6%98%AF%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6/index.html">
 <meta property="og:site_name" content="flipped的个人博客">
-<meta property="og:description" content="life gonna be like this way">
+<meta property="og:description" content="拥塞控制一直是网络领域一个热点的问题，本文介绍了什么是拥塞控制，为什么要拥塞控制以及拥塞控制算法。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/qiangzhang0925/images/raw/master/img/WX1.png">
+<meta property="og:image" content="https://github.com/qiangzhang0925/images/raw/master/img/WX202008199.png">
+<meta property="article:published_time" content="2020-08-19T12:48:19.000Z">
+<meta property="article:modified_time" content="2020-08-19T14:03:22.280Z">
 <meta property="article:author" content="george.zhang">
-<meta property="article:tag" content="SEU计算机在读硕士">
+<meta property="article:tag" content="拥塞控制">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/qiangzhang0925/images/raw/master/img/WX1.png">
   
     <link rel="alternative" href="/atom.xml" title="flipped的个人博客" type="application/atom+xml">
   
@@ -181,124 +186,240 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-什么是拥塞控制" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/Hexo-SEO-%E4%BC%98%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2020-08-16T08:31:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/Hexo-SEO-%E4%BC%98%E5%8C%96/">Hexo SEO 优化</a>
+    <h1 class="article-title" itemprop="name">
+      什么是拥塞控制
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/%E4%BB%80%E4%B9%88%E6%98%AF%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2020-08-19T12:48:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p> 拥塞控制一直是网络领域一个热点的问题，本文介绍了什么是拥塞控制，为什么要拥塞控制以及拥塞控制算法。  </p>
+</blockquote>
+<a id="more"></a>
+<h3 id="什么是拥塞控制"><a href="#什么是拥塞控制" class="headerlink" title="什么是拥塞控制"></a>什么是拥塞控制</h3><p>&ensp;&ensp;讨论拥塞控制之前，首先要明确网络拥塞的概念。百度百科中的描述：<code>网络拥塞（congestion）是指在分组交换网络中传送分组的数目太多时，由于存储转发节点的资源有限而造成网络传输性能下降的情况。当网络发生拥塞时，一般会出现数据丢失，时延增加，吞吐量下降，严重时甚至会导致“拥塞崩溃”（congestion collapse）。通常情况下，当网络中负载过度增加致使网络性能下降时，就会发生网络拥塞。</code><br><img src="https://github.com/qiangzhang0925/images/raw/master/img/WX1.png" alt=""><br>&ensp;&ensp;拥塞控制是TCP传输中很重要的一环，TCP拥塞控制使用一个<strong>拥塞窗口</strong>以及<strong>拥塞策略</strong>来进行拥塞控制。流量控制中提到发送端的发送窗口取决于接收窗口，实际上，发送方的窗口大小是接收窗口与拥塞窗口中的较小值。拥塞窗口的大小又取决于网络的拥塞状况。而具体确定拥塞窗口大小则需要拥塞策略来决定。</p>
+<h3 id="为什么需要拥塞控制"><a href="#为什么需要拥塞控制" class="headerlink" title="为什么需要拥塞控制"></a>为什么需要拥塞控制</h3><p>&ensp;&ensp;经过上面的描述，相信大家对拥塞控制对必要性有了一定对了解。如果不进行拥塞控制，则会出现<strong>数据包丢失，时延增加，吞吐量下降</strong>等问题。我门日常生活中的网络如果没有拥塞控制，例如看视频玩游戏根本毫无体验可言。</p>
+<h3 id="拥塞控制算法"><a href="#拥塞控制算法" class="headerlink" title="拥塞控制算法"></a>拥塞控制算法</h3><p>&ensp;&ensp;大家对在本科的计算机网络中所学的TCP拥塞控制肯定不陌生：慢开始，拥塞避免，快重传，快恢复。<br><img src="https://github.com/qiangzhang0925/images/raw/master/img/WX202008199.png" alt=""><br>本片博客先对拥塞控制算法的分类做一个简单的总结，之后的文章深入每一个算法进行介绍。</p>
+<ul>
+<li><font size=3>基于丢包的拥塞控制：Reno，Cubic</font></li>
+<li><font size=3>基于时延的拥塞控制：Vagas，Fast TCP</font></li>
+<li><font size=3>基于链路容量的拥塞控制：BBR</font></li>
+<li><font size=3>基于学习的拥塞控制：Remy</font><h3 id="end"><a href="#end" class="headerlink" title="end!"></a><center>end!</center></h3></li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢大家的打赏！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpeg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SEO</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">拥塞控制</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/其他//" class="article-tag-list-link color3">其他</a>
+        			<a href="/categories/网络//" class="article-tag-list-link color3">网络</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://georgezhang.top/2020/%E4%BB%80%E4%B9%88%E6%98%AF%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/My-first-blog/" class="archive-article-date">
-  	<time datetime="2020-08-13T03:21:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-13</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E4%BB%8B%E7%BB%8D/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          特征工程介绍
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/something%20about%20love/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">something about love</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/My-first-blog/">My first blog</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/其他//" class="article-tag-list-link color3">其他</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">什么是拥塞控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">为什么需要拥塞控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">拥塞控制算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#end"><span class="toc-number">4.</span> <span class="toc-text">end!</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
+
+  
+
+  
+
+  
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '1710dc0379211e7325c4',
+  	clientSecret: '4acb94f64e39b7da5cd2d0d7811e5042c5824bec',
+  	repo: 'qiangzhang0925.github.io',
+  	owner: 'qiangzhang0925',
+  	admin: ['qiangzhang0925'],
+  	id: 'Wed Aug 19 2020 20:48:19 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
 
     
+
+  
 
 
           </div>
@@ -328,10 +449,10 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
