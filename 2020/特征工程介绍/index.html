@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://georgezhang.top">
-  <title>Archives: 2020 | flipped的个人博客</title>
+  <title>特征工程介绍 | flipped的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="life gonna be like this way">
-<meta property="og:type" content="website">
-<meta property="og:title" content="flipped的个人博客">
-<meta property="og:url" content="https://georgezhang.top/archives/2020/index.html">
+  <meta name="description" content="数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。数据挖掘和数据分析时，数据是所有问题的基础，有时候处理好数据能比使用复杂的算法得到更加意想不到的收益.换言之，好的特征即使使用简单的模型也能取得很好的效果。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="特征工程介绍">
+<meta property="og:url" content="https://georgezhang.top/2020/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="flipped的个人博客">
-<meta property="og:description" content="life gonna be like this way">
+<meta property="og:description" content="数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。数据挖掘和数据分析时，数据是所有问题的基础，有时候处理好数据能比使用复杂的算法得到更加意想不到的收益.换言之，好的特征即使使用简单的模型也能取得很好的效果。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/qiangzhang0925/images/raw/master/img/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B.png">
+<meta property="article:published_time" content="2020-08-19T14:45:36.000Z">
+<meta property="article:modified_time" content="2020-08-19T03:57:23.516Z">
 <meta property="article:author" content="george.zhang">
-<meta property="article:tag" content="SEU计算机在读硕士">
+<meta property="article:tag" content="特征工程">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/qiangzhang0925/images/raw/master/img/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B.png">
   
     <link rel="alternative" href="/atom.xml" title="flipped的个人博客" type="application/atom+xml">
   
@@ -181,36 +185,98 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-特征工程介绍" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E4%BB%8B%E7%BB%8D/" class="archive-article-date">
-  	<time datetime="2020-08-19T14:45:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-19</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E4%BB%8B%E7%BB%8D/">特征工程介绍</a>
+    <h1 class="article-title" itemprop="name">
+      特征工程介绍
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E4%BB%8B%E7%BB%8D/" class="archive-article-date">
+  	<time datetime="2020-08-19T14:45:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p><strong><em>数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已</em></strong>。<code>数据挖掘</code>和<code>数据分析</code>时，数据是所有问题的基础，有时候处理好数据能比使用复杂的算法得到更加意想不到的收益.换言之，好的特征即使使用简单的模型也能取得很好的效果。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="1-特工工程是什么"><a href="#1-特工工程是什么" class="headerlink" title="1. 特工工程是什么"></a>1. 特工工程是什么</h3><p>特征工程的组成如下图描述：<br><img src="https://github.com/qiangzhang0925/images/raw/master/img/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B.png" alt=""><br>特征处理是特征工程的核心部分，python的<code>sklearn</code>库提供了较为完整的特征处理方法，包括数据预处理，特征选择，降维等方法。</p>
+<h3 id="2-数据预处理"><a href="#2-数据预处理" class="headerlink" title="2. 数据预处理"></a>2. 数据预处理</h3><p>原始未经处理的数据可能存在以下问题：</p>
+<ul>
+<li>不属于同一量纲：进行<strong>无量纲化</strong></li>
+<li>信息冗余：删除多余的数据</li>
+<li>定性特征无法使用：通过<a target="_blank" rel="noopener" href="http://www.jiehuozhe.com/article/3">哑编码</a>将定性特征转化为定量特征</li>
+<li>存在缺失值</li>
+<li>信息利用率低<blockquote>
+<p>使用sklearn中的<code>preproccessing</code>库来进行数据预处理，可以覆盖以上问题的解决方案  </p>
+</blockquote>
+</li>
+</ul>
+<h4 id="2-1-无量纲化"><a href="#2-1-无量纲化" class="headerlink" title="2.1 无量纲化"></a>2.1 无量纲化</h4><ul>
+<li>标准化：前提是特征值服从<code>正态分布</code>，计算特征的均值和标准差:  <script type="math/tex; mode=display">x^{\prime}=\frac{x-\bar{X}}{S}</script></li>
+<li>区间放缩法：思路有多种，最常见的是利用两个最值进行放缩:  <script type="math/tex; mode=display">x^{\prime}=\frac{x-M i n}{M a x-M i n}</script></li>
+<li>归一化：  <script type="math/tex; mode=display">x^{\prime}=\frac{x}{\sqrt{\sum_{j}^{m} x[j]^{2}}}</script><h3 id="3-特征选择"><a href="#3-特征选择" class="headerlink" title="3. 特征选择"></a>3. 特征选择</h3>&ensp;&ensp;当数据预处理完成后，需要选择有意义的特征输入机器学习的算法和模型进行训练。通常来说，从两个方面考虑来选择特征：</li>
+<li>特征是否发散：如果一个特征不发散，例如方差接近于0，也就是说样本在这个特征上基本上没有差异，这个特征对于样本的区分并没有什么用</li>
+<li>特征与目标的相关性：这点比较显见，与目标相关性高的特征，应当优选选择。除方差法外，本文介绍的其他方法均从相关性考虑<br>&ensp;&ensp;根据特征选择的形式又可以将特征选择的方法分为3种：</li>
+<li>Filter：过滤法，按照发散性或者相关性对<strong>各个特征进行评分</strong>，设定阈值或者待选择阈值的个数，选择特征</li>
+<li>Wrapper：包装法，根据<strong>目标函数</strong>（通常是预测效果评分），每次选择若干特征，或者排除若干特征</li>
+<li>Embedded：嵌入法，先使用某些<strong>机器学习的算法和模型</strong>进行训练，得到各个特征的权值系数，根据系数从大到小选择特征。类似于Filter方法，但是是通过训练来确定特征的优劣<h4 id="3-1-Filter"><a href="#3-1-Filter" class="headerlink" title="3.1 Filter"></a>3.1 Filter</h4></li>
+<li>方差选择法：使用方差选择法，需要首先计算各个特征的方差，然后根据阈值选择方差大于阈值的特征</li>
+<li>相关系数法：使用相关系数法，先要计算各个特征对目标值的相关系数以及相关系数的P值</li>
+<li>卡方检验：卡方检验是检验定性自变量对因变量的相关性。假设自变量N种取值，因变量M种取值。考虑自变量i，因变量j的样本频数的观察值与期望的差距，构造统计量：  <script type="math/tex; mode=display">\chi^{2}=\sum \frac{(A-E)^{2}}{E}</script></li>
+<li><p>互信息法：经典的互信息法也是评价定性自变量对因变量的相关性的。计算公式如下：  </p>
+<script type="math/tex; mode=display">I(X ; Y)=\sum_{x \in X} \sum_{y \in Y} p(x, y) \log \frac{p(x, y)}{p(x) p(y)}</script><h4 id="3-2-Wrapper"><a href="#3-2-Wrapper" class="headerlink" title="3.2 Wrapper"></a>3.2 Wrapper</h4><p><code>递归特征消除法</code>：使用一个基模型来进行多轮训练。每轮训练后，消除若干全职系数的特征，再基于新的特征集进行下一轮的训练</p>
+<h4 id="3-3-Embedded"><a href="#3-3-Embedded" class="headerlink" title="3.3 Embedded"></a>3.3 Embedded</h4></li>
+<li><p>基于惩罚项的特征选择法</p>
+</li>
+<li>基于树模型的特征选择法</li>
+</ul>
+<h3 id="4-降维"><a href="#4-降维" class="headerlink" title="4. 降维"></a>4. 降维</h3><blockquote>
+<p>当特征选择完成后，可以直接训练模型了，但是可能由于特征矩阵过大，导致计算量大，训练时间长的问题，因此降低特征矩阵维度也是必不可少的。常见的降维方法除了以上提到的基于L1惩罚项的模型以外，另外还有<code>主成分分析法（PCA</code>）和<code>线性判别分析（LDA)</code>，线性判别分析本身也是一个分类模型。PCA和LDA有很多的相似点，其本质是要将原始的样本映射到维度更低的样本空间中，但是PCA和LDA的映射目标不一样：<a href="https://link.zhihu.com/?target=http%3A//www.cnblogs.com/LeftNotEasy/archive/2011/01/08/lda-and-pca-machine-learning.html">PCA是为了让映射后的样本具有最大的发散性；而LDA是为了让映射后的样本有最好的分类性能</a>。所以说PCA是一种无监督的降维方法，而LDA是一种有监督的降维方法</p>
+</blockquote>
+<h3 id="end"><a href="#end" class="headerlink" title="end!"></a><center>end!</center></h3>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢大家的打赏！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpeg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -222,7 +288,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -235,221 +301,140 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://georgezhang.top/2020/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E4%BB%8B%E7%BB%8D/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/%E6%B8%B8%E6%88%8F%E4%BA%A4%E6%B5%81/" class="archive-article-date">
-  	<time datetime="2020-08-17T09:29:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/%E6%B8%B8%E6%88%8F%E4%BA%A4%E6%B5%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">游戏交流</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/%E6%B8%B8%E6%88%8F%E4%BA%A4%E6%B5%81/">游戏交流</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">炉石传说</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">steam</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/游戏//" class="article-tag-list-link color3">游戏</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%89%B9%E5%B7%A5%E5%B7%A5%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text">1. 特工工程是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">2. 数据预处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E6%97%A0%E9%87%8F%E7%BA%B2%E5%8C%96"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 无量纲化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9"><span class="toc-number">3.</span> <span class="toc-text">3. 特征选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-Filter"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 Filter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-Wrapper"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 Wrapper</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-Embedded"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 Embedded</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%99%8D%E7%BB%B4"><span class="toc-number">4.</span> <span class="toc-text">4. 降维</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#end"><span class="toc-number">5.</span> <span class="toc-text">end!</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/Hexo-SEO-%E4%BC%98%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2020-08-16T08:31:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/Hexo-SEO-%E4%BC%98%E5%8C%96/">Hexo SEO 优化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SEO</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/其他//" class="article-tag-list-link color3">其他</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/%E4%B8%80%E5%91%A8%E8%A7%82%E5%89%A7%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2020-08-14T15:12:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-14</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/%E4%B8%80%E5%91%A8%E8%A7%82%E5%89%A7%E8%AE%B0%E5%BD%95/">一周观剧记录</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">电视和电影</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/生活//" class="article-tag-list-link color3">生活</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/My-first-blog/" class="archive-article-date">
-  	<time datetime="2020-08-13T03:21:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/My-first-blog/">My first blog</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/其他//" class="article-tag-list-link color3">其他</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
+
   
-    </div></section>
-  
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '1710dc0379211e7325c4',
+  	clientSecret: '4acb94f64e39b7da5cd2d0d7811e5042c5824bec',
+  	repo: 'images',
+  	owner: 'qiangzhang0925',
+  	admin: ['qiangzhang0925'],
+  	id: 'Wed Aug 19 2020 22:45:36 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
 
     
+
+  
 
 
           </div>
@@ -479,8 +464,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
