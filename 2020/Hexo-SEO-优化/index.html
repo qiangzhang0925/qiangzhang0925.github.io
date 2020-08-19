@@ -207,21 +207,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&ensp;&ensp;当自己写好一篇博客时，想要被Google或者百度搜索引擎能够搜索到，必须要让搜索引擎收录，这样才能和做相同事情、拥有相同爱好的人更好地交流。本片文章主要介绍SEO的优化方法来<strong>增加自己网站的流量</strong>。</p>
-<a id="more"></a>
+        <p>&ensp;&ensp;当自己写好一篇博客时，想要被Google或者百度搜索引擎能够搜索到，必须要让搜索引擎收录，这样才能和做相同事情、拥有相同爱好的人更好地交流。本片文章主要介绍SEO的优化方法来<strong>增加自己网站的流量</strong>。<br><a id="more"></a></p>
 <h2 id="百度收录"><a href="#百度收录" class="headerlink" title="百度收录"></a>百度收录</h2><ul>
-<li><p><strong>登录<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com/">百度站长平台</a>进行网站所有权的验证</strong></p>
-<ol>
+<li><strong>登录<a target="_blank" rel="noopener" href="https://ziyuan.baidu.com">百度站长平台</a>进行网站所有权的验证</strong><ol>
 <li>进入”用户中心”-&gt;”站点管理”-&gt;”添加网站”</li>
 <li>输入网址进行验证。其中验证的方式有三种，推荐使用文件认证，下载相应的html文件放在博客source文件夹内，通过<code>hexo g</code>和<code>hexo d</code>推到服务器即可</li>
 </ol>
 </li>
 <li><p><strong>选择链接提交方式</strong></p>
 <ul>
-<li><p><strong>手动提交</strong>，输入对应的URL即可</p>
-</li>
-<li><p><strong>sitemap提交</strong></p>
-<ol>
+<li><strong>手动提交</strong>，输入对应的URL即可</li>
+<li><strong>sitemap提交</strong><ol>
 <li>首先安装sitemap generator插件<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-generator-baidu-sitemap</span> <span class="string">--save</span></span><br></pre></td></tr></table></figure></li>
 <li>打开博客站点配置文件<code>_config.yml</code>,增加<code>baidusitemap</code>属性<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">baidusitemap:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">badusitemap.xml</span></span><br></pre></td></tr></table></figure></li>
 <li>最后在百度站长平台-&gt;资源提交-&gt;普通收录-&gt;sitemap中写上你的xml地址即可</li>
@@ -230,18 +226,15 @@
 <li><p><strong>主动提交</strong></p>
 <ol>
 <li><p>首先在普通收录的API提交下面得到相应token</p>
-<img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200816172352.png" alt="baidu" width="500" height="300" align="center" />       </li>
-<li><p>在blog根目录下安装插件</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-baidu-url-submit</span> <span class="string">--save</span></span><br></pre></td></tr></table></figure></li>
-<li><p>最后在博客站点配置文件<code>_config.yml</code>，增加<code>baidu_url_submit</code>和<code>deploy</code>属性</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 百度主动推送</span></span><br><span class="line"><span class="attr">baidu_url_submit:</span></span><br><span class="line"><span class="attr">count:</span> <span class="number">10</span> <span class="comment">## 提交最新的 10 个链接</span></span><br><span class="line"><span class="attr">host:</span> <span class="string">georgezhang.top</span> <span class="comment">## 注意修改为你在百度站长平台中注册的域名</span></span><br><span class="line"><span class="attr">token:</span> <span class="string">XXX</span> <span class="comment">## 注意修改为你的秘钥</span></span><br><span class="line"><span class="attr">path:</span> <span class="string">baidu_urls.txt</span> <span class="comment">## 文本文档的地址  新链接会保存在此文本文档里</span></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">https://github.com/qiangzhang0925/qiangzhang0925.github.io.git</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">master</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">type:</span> <span class="string">baidu_url_submitter</span> </span><br></pre></td></tr></table></figure></li>
+<p><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200816172352.png" alt="baidu" width="500" height="300" align="center" />       </p>
+</li>
+<li>在blog根目录下安装插件<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-baidu-url-submit</span> <span class="string">--save</span></span><br></pre></td></tr></table></figure></li>
+<li>最后在博客站点配置文件<code>_config.yml</code>，增加<code>baidu_url_submit</code>和<code>deploy</code>属性<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 百度主动推送</span></span><br><span class="line"><span class="attr">baidu_url_submit:</span></span><br><span class="line"><span class="attr">count:</span> <span class="number">10</span> <span class="comment">## 提交最新的 10 个链接</span></span><br><span class="line"><span class="attr">host:</span> <span class="string">georgezhang.top</span> <span class="comment">## 注意修改为你在百度站长平台中注册的域名</span></span><br><span class="line"><span class="attr">token:</span> <span class="string">XXX</span> <span class="comment">## 注意修改为你的秘钥</span></span><br><span class="line"><span class="attr">path:</span> <span class="string">baidu_urls.txt</span> <span class="comment">## 文本文档的地址  新链接会保存在此文本文档里</span></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">repo:</span> <span class="string">https://github.com/qiangzhang0925/qiangzhang0925.github.io.git</span></span><br><span class="line"><span class="attr">branch:</span> <span class="string">master</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">type:</span> <span class="string">baidu_url_submitter</span> </span><br></pre></td></tr></table></figure></li>
 </ol>
 </li>
-<li><p><strong>自动推送</strong></p>
-<ol>
+<li><strong>自动推送</strong><ol>
 <li>增加<code>baidu_push</code>属性为true</li>
 <li>在theme的<code>_partial</code>文件夹下新建<code>baidu-push.ejs</code>,代码如下：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;% <span class="keyword">if</span> (theme.baidu_push)&#123; %&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line"> (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">       <span class="keyword">var</span> bp = <span class="built_in">document</span>.createElement(<span class="string">&#x27;script&#x27;</span>);</span><br><span class="line">        <span class="keyword">var</span> curProtocol = <span class="built_in">window</span>.location.protocol.split(<span class="string">&#x27;:&#x27;</span>)[<span class="number">0</span>];</span><br><span class="line">       <span class="keyword">if</span> (curProtocol === <span class="string">&#x27;https&#x27;</span>) &#123;</span><br><span class="line">          bp.src = <span class="string">&#x27;https://zz.bdstatic.com/linksubmit/push.js&#x27;</span>;</span><br><span class="line">     &#125;</span><br><span class="line">       <span class="keyword">else</span> &#123;</span><br><span class="line">           bp.src = <span class="string">&#x27;http://push.zhanzhang.baidu.com/push.js&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> s = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;script&quot;</span>)[<span class="number">0</span>];</span><br><span class="line">      s.parentNode.insertBefore(bp, s);</span><br><span class="line">   &#125;)();</span><br><span class="line">   &lt;/script&gt;</span><br><span class="line"> &lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 </li>
@@ -249,24 +242,18 @@
 </li>
 </ul>
 <h2 id="谷歌收录"><a href="#谷歌收录" class="headerlink" title="谷歌收录"></a>谷歌收录</h2><ul>
-<li><p><strong>进入<a target="_blank" rel="noopener" href="https://search.google.com/search-console/welcome">Google Search Console</a></strong>,网站所有权的验证和百度的类似，不再赘述。验证方式还是推荐HTML的方式</p>
-</li>
+<li><strong>进入<a target="_blank" rel="noopener" href="https://search.google.com/search-console/welcome">Google Search Console</a></strong>,网站所有权的验证和百度的类似，不再赘述。验证方式还是推荐HTML的方式</li>
 <li><p><strong>提交sitemap</strong></p>
 <ul>
-<li><p>首先安装插件</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-generator-sitemap</span> <span class="string">--save</span></span><br></pre></td></tr></table></figure></li>
-<li><p>打开<code>_config.xml</code>,增加<code>sitemap</code>属性</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br></pre></td></tr></table></figure></li>
+<li>首先安装插件<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-generator-sitemap</span> <span class="string">--save</span></span><br></pre></td></tr></table></figure></li>
+<li>打开<code>_config.xml</code>,增加<code>sitemap</code>属性<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sitemap:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">sitemap.xml</span></span><br></pre></td></tr></table></figure></li>
 <li><p>提交sitemap</p>
-<img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200816190017.png" alt="google" width="500" height="300" align="center" />  
-
+<p><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200816190017.png" alt="google" width="500" height="300" align="center" />  </p>
 </li>
 </ul>
 </li>
 </ul>
-<h2 id="添加robots-txt"><a href="#添加robots-txt" class="headerlink" title="添加robots.txt"></a>添加robots.txt</h2><p>在<code>source/</code>文件夹下新建<code>robots.txt</code>文件:  </p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">User-agent:</span> <span class="string">*</span></span><br><span class="line"><span class="attr">Allow:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">Allow:</span> <span class="string">/tags/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/archives/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/categories/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/vendors/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/js/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/css/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/fonts/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/vendors/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/fancybox/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Sitemap:</span> <span class="string">https://georgezhang.top/sitemap.xml</span></span><br><span class="line"><span class="attr">Sitemap:</span> <span class="string">https://georgezhang.top/baidusitemap.xml</span></span><br></pre></td></tr></table></figure>
-
+<h2 id="添加robots-txt"><a href="#添加robots-txt" class="headerlink" title="添加robots.txt"></a>添加robots.txt</h2><p>在<code>source/</code>文件夹下新建<code>robots.txt</code>文件:<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">User-agent:</span> <span class="string">*</span></span><br><span class="line"><span class="attr">Allow:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">Allow:</span> <span class="string">/tags/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/archives/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/categories/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/vendors/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/js/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/css/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/fonts/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/vendors/</span></span><br><span class="line"><span class="attr">Disallow:</span> <span class="string">/fancybox/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Sitemap:</span> <span class="string">https://georgezhang.top/sitemap.xml</span></span><br><span class="line"><span class="attr">Sitemap:</span> <span class="string">https://georgezhang.top/baidusitemap.xml</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="end！"><a href="#end！" class="headerlink" title="end！"></a><center>end！</center></h3>
       
 
@@ -600,6 +587,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">电视和电影</a>
               </li>
              
@@ -613,10 +604,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">特征工程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
               </li>
             
             <div class="clearfix"></div>
