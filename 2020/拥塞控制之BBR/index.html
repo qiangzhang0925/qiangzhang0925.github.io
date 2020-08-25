@@ -6,20 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://georgezhang.top">
-  <title>something about love | flipped的个人博客</title>
+  <title>拥塞控制之BBR | flipped的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="有时静下来的时候也想做一个感性的人">
+  <meta name="description" content="之前用vultr搭建vps的时候用到过BBR加速，这篇文章深入介绍一下拥塞控制BBR的算法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="something about love">
-<meta property="og:url" content="https://georgezhang.top/2020/something%20about%20love/index.html">
+<meta property="og:title" content="拥塞控制之BBR">
+<meta property="og:url" content="https://georgezhang.top/2020/%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E4%B9%8BBBR/index.html">
 <meta property="og:site_name" content="flipped的个人博客">
-<meta property="og:description" content="有时静下来的时候也想做一个感性的人">
+<meta property="og:description" content="之前用vultr搭建vps的时候用到过BBR加速，这篇文章深入介绍一下拥塞控制BBR的算法。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-08-19T06:50:44.000Z">
-<meta property="article:modified_time" content="2020-08-19T10:34:54.896Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825190958.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825193305.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825193525.png">
+<meta property="article:published_time" content="2020-08-25T10:39:35.000Z">
+<meta property="article:modified_time" content="2020-08-25T12:09:07.917Z">
 <meta property="article:author" content="george.zhang">
-<meta property="article:tag" content="杂谈">
+<meta property="article:tag" content="拥塞控制">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825190958.png">
   
     <link rel="alternative" href="/atom.xml" title="flipped的个人博客" type="application/atom+xml">
   
@@ -183,35 +187,48 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-something about love" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-拥塞控制之BBR" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      something about love
+      拥塞控制之BBR
     </h1>
   
 
         
-        <a href="/2020/something%20about%20love/" class="archive-article-date">
-  	<time datetime="2020-08-19T06:50:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-19</time>
+        <a href="/2020/%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E4%B9%8BBBR/" class="archive-article-date">
+  	<time datetime="2020-08-25T10:39:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <div class="hbe-input-container">
-  <input type="password" id="hbePass" placeholder="" />
-    <label for="hbePass">怦然心动</label>
-    <div class="bottom-line"></div>
-  </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="f3d21d3c630728bfce9ec1b9e9006cfe49ca921de6dedeb68fe24b55f7f45dae">b1af0af9fc380e2711343331ce264a08990292ab57a3d2302be4c9725ed9a95a192b7823b175eb9f75c64870214d6537a5951ac6c7cd6ae58e2152f17e6e2af78a8fc051b32264ec39dc56de1523308fe744fc2ac44e9e88d87fece8ebfcb5a2bd284359e97f353d6ee15a948d962dc07e467d2acdc7f78a283665083d00ad686a1f488d6cd3ab4a89e165f70fdcc52f1238601d785b7ccc7ecf7daec371a1df75701d90cd6dce50add565c27994606b8d10f592f8f862ce4a9dbb4cb45f70bfb6449228d5f18fc4e6b03bc2b8b8a20d52dcdb9658bd05c1e9384143b60bc0ce5a942133785b7f22621a8a95eb8432363bd5d57f05b8c53aa9abf72cf0b0d02d0a83f16cc89f970571ba107a209f3e0df7f06912a1df87cc7fac0ad980fc9d6978500f335e06bf49f5a8ad5add1da3cbff4f1deb4ec2150f897c11b08ff488ba5ac5c682e307d0fe5fa56f1bc87dbf5580948b576253ce077ef2dd4d6ae8a529c3e54859d49705fdc2083a044945654f2a1540505a916a2e5c2f6005f5dacef122f9bd1dcac88f63cec092c28ac2069d6573da5f49baa0a8371dac698d8824be8af5ccd98ea0cf01c6357b4824989e952b18f697a45c2d9b4e0ef9759fc88a4eaee4a8379de90eda90981fb183dfc42b7751f0ca72e50640f9f188550163dca359367cda35ec93e973b4d676e7559803e969ef5b1060ed681eae529f2c052914b009fd8454036be2f2627cca93498eaa28a3a890e2c82c0298eec7dc69a0ef752354f817730bf8d9aaa0e71f0e86d4a9ffcc503a65779ac54b5c14daa321a9c06bb1f6f2f0680e892d6312bd9e8eb26fc27cd9f74635dddf366cf5e1ebb4ed611bcb7f89abeb0f202641b5f93526bec35b1ab6d80483f3d2e479fc9aea6411795ce58d7601ac19ba1baf73fd145ed5f44052364adc4ee64a61ab0eb80e74180e2a22bd69378fc6e232af552c5a9b2e7f3847c4145f3cdb6928251e6a5279dee384c6bd447ba2a5e50bed9cc8474fe9cb5cd6e9cf98d7b12c3c4c20d96ad1ddf7e87a06e940476feb060c646e6ef65e21218f7ce2e6ca32e928d78fdadf4556fc79a9ad581021f74445ea59d56f1cbf421d05e7e9a363d404a17402a103ab057e11ba3da16d23504bd2738335c567a6e21f4537e6433f22ebfd70cffe705cd9fda46feff380e478d178e4bf361ee7193ee4b91c35b4843724f5b630b1fcb6ae5a169af3bc4d1e82ca898afeb5ea1b4f9e9e5b09400c5b8dd805ff56f491132b7c68175279e55ba88681248d195408834348bab189cca30bf975accb2c15fe5a4de88ff62ec0deb544c558a9ccdd186a1e4d64ab324e22eb8ce540d1097be657b9d0878db4cc0876196529ef42091de1a297b1514baa9058d6227d50f8374b8920b0b82a662bd70320057b7b68aceecf99e3a98a2d4a94da7d987a7595869eda674e1c7c3cac52713c6a1ba6c987e6dae7629242fdc7964780be5a6674cb5589f58e6d52b4be3474d6f92ca410abd51b9031ad17eb672d58268e550aee29efa0c74d8e35e1ff99e53e987a6bb786a7c1c704db759106fca14facb9f31506850397c04f1a6d5462801c0c2729e1ac7052cec88e5f4f982581aee3ce72208dac72c7e810685f9d1116a99c33a70b7822648ff050ff505be66e42ac4b81585ce79dddce806f9e73d671ac692f928546fd0ea35c219c6c3cd41112e7fdac37ae3d1c33ff24fa259ef47ad52650da4d80d8835040f3ad1ff16c82308ba54b50683c566774df1b4974905316ade528621510105087bc52bcd9138d02eb9ef63a3e29f072053e1d6ae00a406afdd184b100e766ba5822a69261137b98dc0f820ca79701a27b1080709c528e240aab08a091320898112dc5b1835289d26ac1e1347db294cc4f47376ed5055a11fc7175dcf73c1d7c387409d477568b71e5517d5b8a29ce991923c47f934ea92bbc0f43dc733e52d9b52dbf4ea21596a36caf0d02db07529f3699ff38efaf90f15b888bd50064fde0fd405cbd186339a3a636330315474807f67bb5ad55f3e7e3b5f5865f4507442aa266e7fff791664252ebd2a49c4ee29b6c7008591d608bb2798559e11b80dc581389d23d6e5510e7d8139ab7815cb55e57f4b6f65f2b02386e45014f857887e8dd6de1411367df3cd108286d58afb7c7e475b2383da8d31da23d92946a605bed2968e1948222418fab0929597c0799483da842a5aefa64e86da78379c1e21bbeb4d1ac9db919dde0b60b62cab5e45293b8d25a775a7c680c5f21dd6035841c8162661fc3a2bcd762006ea01a6fa9db36d697654e7b90f2dc049a03a446007b6298837b287024b35ce0bd68589c48c70a3164bc63474b0bfe56cf13704eafbfc9efb09df3f00e1480ee1be7de4d91cd7c5097a00bbfa2a7b25a4b2bfef4ca7773f9e1a608eaa16cd24129c48f101b7f9b6337f8f19cecc1abcbcaa11e5886fd0f5a61e7f798e574af14527b7d44a40d1a3f5c729f156b44bd938825b99996310eb90e1c33d7cc26015a672ad201bcbba576f808717dd014d6ca43bb50e25562828c7a3ed4f70d52fea526f057c775906b074a8b52bd06a2dc9fd455e7fcee950b18850c894c4022298791b2cad13345e83c19d9f3412aed674350f61406bbd7637fe90b75435ec1174ee998e9c83368ef91b7d0a23179dc28a12302ac2b1ec9afc9981c3f14f543617f6e535a93de74aa0224f6f52236253ac3b32121e931ba7ed3457e8cf6a5f7296b0b2b5d95d69c772f023f5f36a72a5f12526a731223bafc6d7752d75c26c6ec211ed8368a262f42dddc6ba14da799a0f4cb72eb1045aa697570f976f97e1b9c205b7ecc2090d9b35af79267635c03af58f541cae70781706019adf4b98075b724056e2a5dd05812de700a3ecb7c159ef21295888f2e7773fc0dfaa944aa57a937c5c009ea1cdd41d59cb08dd95169d49fbb4752a269d07466de09e7c4d2748fa083c2d07fdfd7994265a726027018f6ad69f527846c84c5bdda1a8be18e049ef96c679c79300e1dbcc313ef64b9be6827d2675d096ba48746eed963beb0854eb5d0d65fe17bd1096ddb78702c52d561f8ed8781f413e1ef901e569249aef51426013660512053a65e0ca03a352f3bde3a35009c3fd0265a80e74a429ea5580c41dc6247af4082d0bd8ea5b32332608353b3e954236cdb48e214c9755d071c25091933caa64b0bad110fc7085f24c99b961e8a89e1629823d981de2a4a181a549f5d8d034fea59afe0a0f35906f119f668b417c956840916bbe19ef39ab9e40ec02350ad90ae2b9821dd6f59ff4b9906fb8789a16a6ad505116e8fc2cdac868fa37b9233dff080236994d6d60f5297ad146a9529b415da11a95a48ff14645cd9140da613b948c992e578275fbb87f1136bfee6485c450c31c23a1997d2e709b88da800d34eeb92fcb453d2d98dd9510aee8e5053c22e6a1d7ff37d95b71fddcbe4271a3c31c8917348b9f753a01ec22961f0781b7e8b9164e2bef5cb83390a8f053e3d84acb40bffac6af1ef0121b0d2c06fa95c6917df36b364cbbd6f86669de17ec2fe32b3dbe7e91070b84ca382f1d1967fb9772b93148d544631daed53d9a8d63933106e5bbc63b5215fbd2f17e4cb82bbe01e658aefc367c983b309b972e7f37228668fb3f88a18b198c1e6e077a0c95d461a2563682b4f7e06f8f6ebb9d4c907d94d15fa0ae2f15575d0c23d4ad0c6f9fee45981ef7f3b25df737c664a7cd223f7e5608b460dfd46d0ecb8c63b6cf2f523809c14eb3ee8f70e646e459af5ed9610e32b379282f8bd4c1f5afbcc7c3bd682aee2cd2e5e911851e00725c91739b737c1b080d10f7b9ab7a230ca33cba6a064b0cb18f1271c4bca39cc4a8cdcc99d6802d23c7aeaf7dbe756693da20a9b978b9b4ca0dae0f020ea07172558a8773f95fbf2d8aee7997d240e0ae4f2e3f7e799a43919e469339e2f8b61100a64ce673a02310e4aeb2cf6a2d56b9c59081a2f39f41c15702f3e55314f01e9d4c2d69e4a1cfbe3a542f5281f97cf67ae5fd32f0b803c362050e7967a62922fc999c8152867719b2aefe116011405ff2b2d060c065fd42300642f206553476b3b12130621f1f5660c69cf78ee69b9bcb24d9b41bb27fa91949a48fc97574c040a52c0ff2ba7e2ec7a1562d088a2ff60681fd1e9d8e0fb9217ea789d823e9104d07536f0adbfedc5400177fac0ed94d83109f09f2275ff6e9ba982559a30edb2b8e5e86ec581007cfb382196147102f1a9f4853c973a79f957bb965c15e5caa8de36ece95235eccb44ed08f5e4a3f39cf0dd6c78fc9581b18a29bcb109cdf88456668b4e8add7469ebe7957e887bea056cfa48d56d7bd5d4ef8fdd3355666161d8c076a3830c130002853b7ef734dfe872d892b8ba7cd1c1d54ae52f92a6b1c8264b7fe5f36c8abf673b61010f465f3a4e88fbca40b666a1ef1d26a1ee07feb35622768fbb2c0252b26513ba88124616ec82d6500a873eb806079f5d2cfb94d1cfd632aac61e8f8074509fe1fbcbf961c7e20c09f37b551438b0aacdda43fa63fde7a13f5cb1608a45b77299b1132d6a5373f3204c3f8d962b5c67c5f416fe34f2aa3e1288974820c6230c51d34618c61251eecbbe81c467bfd62592c8ddf4e9a8fef1fefba469f307201469a269fee3341aa00dd4250ed62ba5008c907fcd709625f487deaa9bd532643cbabea920e4f00f3224729dc982e4a247a9b5c5c5ec003e8ac1e1035a0aa30f3819800b4bd58a11fc9c2adafe110c607860a0ba72d62e37785d5d60bf9a4a13c32ea5281f3430da5adad526492255fbf375dfd1114b2bd2357ec7f05ef80020a761e9f283860f351614e72356272a1da6da2d1f42f7d93ffdf0250dd6e3204475c5a532695c9d9a6cd712b87b2a27a72d8a05bc90e4c4b86bb82ec3152e0c1c13a59aa68ceba61b5a024c65b0632c6c1b37b8375706b8a8f0bf1584f476132f350e6436d8f149d31e956cbb66e9dfcc6eef75887b83fe86b39d8311f5fd9e61d374562bb71da22bcfab042487faba8ce79d800ed656a758af53e882ae38df5eaab9fa83a20d9896ca48aca85b6ce7903ac1fd443acd0db1c2498b19b73ee247e4ec76b67e935c54a3f7013adf4f140511f3e1e956d8085e4aaec73325841abf6c20aed4a617b8a52501e0cd9b7836c506b05f97329471d2a19a2d30681b77bd6bfa305c7c71bff3119380c8d4648285947724e450217ae3e6e757e67869c4251820990ea4cb28e36d25e67dd5d082559728e45568aa20c417cd425e21c78e1c11af87ff225b1a38df996367ed1cc5c97648fcd1b4459e829b6f70ba50667e0140ec41d48432d12498c411446c220474199c5f01a4ff282b7fa84e04599579f358abd13cb23cdf5b2b46c02fd63dc8fccba122b4567bcf92f80e33d83a77be5d69632d27ca11cf8d810d078505f6b580a1d4c11fc5465c2b3f3f8f5a63d4f04542fd19fc1e3420dcca862f567632c43d372856204d50dcc8e563dc2c0463d0caa8f2f4ff5cfd7a4725dbc59fbb667b49f508e8a338b1e4d3aed7a7e5c61df8a389898f820f61d7fb9e73e4618d54e548451628c1cba4b067d85554b9872aab3fedce6bd38d2e4e4a2217a4d329f398f72564eb6acbd76b7470fba02b6b405cef25ef8adf2fd099971df75e5c7b30fda6db4ee0869bd3bf1bc0cfee9edb16e002b7b0579081b5b1a75227bb09a850bff9910ce0d034d10ee1a476adbf6c3d8fe90fd088e52b384eb8e5031fe4f5c9070898a87d286f5fe85421b89cf82623057bb5f746f4d1cca912a35b3cd3599330ed43454db5ce87d2bd9051c584404825a6e8658889da119c485b017efe0e11a727e1ac94222518f0f97ec1361be6d1cad43381a3e4b366c86c90b951e67ccfd3ecacc52ea35ae60c8e11c080f436d624e74f1b42b91df7faf013bf4e9ed88565fe4d5387cf9fdad0c75041fe601053d3d83a90d14861efcf211aee190d03aa80057db6d902562025f50f328d112c177fe37fb6fcf2f938cbe6de562957fa1038db49ca3469deb8504097231c40a55ca8e23cb6ad896b5578808097c3d7efe115c77bebacfe92b4fe338b118ca05e110b7a9897e18b2ac6fda0e1cd1f3c609e4107d56f15b81b0c71d8b7884738bf1983637318aa101218961a8ba7e551c0e8c4d8bba6fe2809e3f8b44908ee2ca959f8b89998a1757de3c6bff5ff83ac3d8f20e0ea0f3266c8c69029fd7b88fba01721f9c545ad5d8ef7ca1ddcb0d8c1d00506</script>
-</div>
-<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+        <blockquote>
+<p>之前用vultr搭建vps的时候用到过BBR加速，这篇文章深入介绍一下拥塞控制BBR的算法。<br><a id="more"></a></p>
+</blockquote>
+<p>&ensp;&ensp;BBR是Google在2016年提出的一种拥塞控制算法。丢包即拥塞的思想已经沿用了很多年，很多拥塞控制算法也是基于此的，比如当前Linux kernel的默认拥塞控制算法CUBIC，还有Reno都是基于这一思想进行的拥塞控制。<br><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825190958.png" align="center" /><br>&ensp;&ensp;如上图所示，第1条灰色竖线，是瓶颈路由器的缓冲队列刚刚开始积压时的节点。随着内存的不断降价，路由器设备的缓冲队列也会越来越大，CUBIC算法会造成更大的RTT时延！而BBR通过检测RTprop和BtlBw来实现拥塞控制。</p>
+<blockquote>
+<p>要达到highest throughput和lowest delay，connection必须同时满足两个条件：</p>
+<ul>
+<li>包的瓶颈到达速率等于瓶颈带宽</li>
+<li>总的inflight数据等于带宽时延积</li>
+</ul>
+</blockquote>
+<p>因为BtlBw和RTprop在整个过程中一直是变动的，所以需要一直不断的测量。在任何时刻t：</p>
+<script type="math/tex; mode=display">R T T_{t}=R T \text { prop }_{t}+\eta_{t}</script><p>这里η&gt;=0表示‘noise’，比如接收端的延迟ack策略，ack aggregation策略等。因此RTprop是不可能准确测量的，只能估算，像大多数算法测量最小RTT做的那样：</p>
+<script type="math/tex; mode=display">\text { RTprop }^{\prime}=R T \text { prop }+\min \left(\eta_{t}\right)=\min \left(R T T_{t}\right) \quad \forall t \in\left[T-W_{R}, T\right]</script><p>根据从receiver返回的ack，我们可以知道当前ack确认数据包的RTT和离开sender留存在网络中的确切数据包数。因为我们可以准确知道当前的发送序号snd_nxt，以及其确认序号snd_una，如果开启了SACK也可以准确知道，只不过需要walk一遍SACK段。这样我们便可以测量平均delivery rate:deliveryRate=Δdelivered/Δt。<strong>在这个过程中delivered是可以准确知道的，而Δt则会大于真实interval</strong>，因为受网络噪声的影响，所以deliveryrate&lt;=bottleneckrate，那么我们可以这样评估BtlBw:</p>
+<script type="math/tex; mode=display">{B t l B} w^{\prime}=\max \left(\text {delivery Rate}_{t}\right) \quad \forall t \in\left[T-W_{B}, T\right]</script><p>&ensp;&ensp;综上所述，BBR的组成：</p>
+<ul>
+<li>即时带宽的计算：应答了多少数据，记为<strong><em>delivered</em></strong>；应答delivered这么多数据所用的时间，记为<strong><em>interval_us</em></strong>，两者相除</li>
+<li>pipe状态机：<br><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825193305.png" alt="" width="700" height="400" align="center" /></li>
+<li>pacing rate和cwnd的计算：pacing rate是使用时间窗口内(默认10轮采样)最大BW。上一次采样的即时BW，用它来在可能的情况下更新时间窗口内的BW采样值集合。这次能否按照这个时间窗口内最大BW发送数据呢？这样看当前的增益系数的值，设为G，那么BW<em>G就是pacing rate的值。我们采用BDP</em>G’就算出了cwnd，这里的G’是cwnd的增益系数，与带宽增益系数含义一样，根据bbr的状态机来获取。<br><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825193525.png" alt=""></li>
+</ul>
+<p>每一个ack都会提供一个新的RTT和delivery rate值，用来更新RTprop和BtlBw，伪代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">onAck</span><span class="params">(packet)</span></span></span><br><span class="line"><span class="function">    rtt </span>= now - packet.sendtime</span><br><span class="line">    update_min_filter(RTpropFilter,rtt)</span><br><span class="line">    delivered += packet.size</span><br><span class="line">    delivered_time = now</span><br><span class="line">    deliveredRate = (delivered - packet.delivered) / (delivered_time - packet.delivered_time)</span><br><span class="line">    <span class="keyword">if</span> (deliveryRate &gt; BtlBwFilter.currentMax || packet.app_limited)</span><br><span class="line">        update_max_filter(BtlBwFilter,deliveryRate)</span><br><span class="line">    <span class="keyword">if</span> (app_limited_until &gt; <span class="number">0</span>)</span><br><span class="line">        app_limited_until = app_limited_until - packet.size</span><br></pre></td></tr></table></figure><br>为了使packet-arrival rate和bottleneck link’s departure rate相匹配，BBR必须paces每一个数据包。pacing_rate是BBR的主要控制参数，另外一个参数是cwnd_gain，用来限定inflight为小倍数的BDP，伪代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">send</span><span class="params">(packet)</span></span></span><br><span class="line"><span class="function">    bdp </span>= BtlBwFilter.currentMax * RTpropFilter.currentMin</span><br><span class="line">    <span class="keyword">if</span>( infilght &gt;= cwnd_gain * bdp)</span><br><span class="line">        <span class="comment">// wait for ack or retransmission timeout</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> (now &gt;= nextSendTime)</span><br><span class="line">        packet = nextPacketToSend()</span><br><span class="line">        <span class="keyword">if</span> (!packet)</span><br><span class="line">            app_limited_until = inflight</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        packet.app_limited = (app_limted_until &gt; <span class="number">0</span>)</span><br><span class="line">        packet.sendtime = now</span><br><span class="line">        packet.delivered = delivered</span><br><span class="line">        packet.delivered_time = delivered_time</span><br><span class="line">        ship(packet)</span><br><span class="line">        nextSendTime = now + packet.size / (pacing_gain * BtlBwFIlter.currentMax)</span><br><span class="line">    timerCallbackAt(sned,nextSendTime)</span><br></pre></td></tr></table></figure><br><strong>pacing_gain[5/4,3/4,1,1,1,1,1,1]</strong>便是决定链路速率调整的关键周期数组。</p>
+<h3 id="end"><a href="#end" class="headerlink" title="end!"></a><center>end!</center></h3>
       
 
       
@@ -250,7 +267,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">拥塞控制</a>
         		</li>
       		
 		</ul>
@@ -262,7 +279,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/情感//" class="article-tag-list-link color3">情感</a>
+        			<a href="/categories/网络//" class="article-tag-list-link color3">网络</a>
         		</li>
       		
 		</ul>
@@ -317,7 +334,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://georgezhang.top/2020/something%20about%20love/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://georgezhang.top/2020/%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E4%B9%8BBBR/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -331,18 +348,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/%E4%BB%80%E4%B9%88%E6%98%AF%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          什么是拥塞控制
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/%E6%B8%B8%E6%88%8F%E4%BA%A4%E6%B5%81/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">游戏交流</div>
+    <a href="/2020/%E6%9D%AD%E5%B7%9E%E4%B9%8B%E6%97%85/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">杭州之旅</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -369,7 +377,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#end"><span class="toc-number">1.</span> <span class="toc-text">end!</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -402,7 +410,7 @@ if(true){
   	repo: 'qiangzhang0925.github.io',
   	owner: 'qiangzhang0925',
   	admin: ['qiangzhang0925'],
-  	id: 'Wed Aug 19 2020 14:50:44 GMT+0800',
+  	id: 'Tue Aug 25 2020 18:39:35 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
