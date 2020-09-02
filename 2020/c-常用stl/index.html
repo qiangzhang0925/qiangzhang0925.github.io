@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://georgezhang.top">
-  <title>categories | flipped的个人博客</title>
+  <title>c++常用stl | flipped的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="life gonna be like this way">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="https://georgezhang.top/categories/index.html">
+  <meta name="description" content="本片博客介绍一些编程需要用到的一些常见的C++STL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c++常用stl">
+<meta property="og:url" content="https://georgezhang.top/2020/c-%E5%B8%B8%E7%94%A8stl/index.html">
 <meta property="og:site_name" content="flipped的个人博客">
-<meta property="og:description" content="life gonna be like this way">
+<meta property="og:description" content="本片博客介绍一些编程需要用到的一些常见的C++STL">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-08-17T00:11:54.000Z">
-<meta property="article:modified_time" content="2020-08-17T05:10:23.684Z">
+<meta property="article:published_time" content="2020-09-02T01:43:04.000Z">
+<meta property="article:modified_time" content="2020-09-02T02:10:14.438Z">
 <meta property="article:author" content="george.zhang">
-<meta property="article:tag" content="SEU计算机在读硕士">
+<meta property="article:tag" content="c++">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="flipped的个人博客" type="application/atom+xml">
@@ -183,20 +183,297 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article class="article article-type-post show">
-    <header class="article-header" style="border-bottom: 1px solid #ccc">
-    <h1 class="article-title" itemprop="name">
-      categories
-    </h1>
-    </header>
+            <article id="post-c-常用stl" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      c++常用stl
+    </h1>
+  
+
+        
+        <a href="/2020/c-%E5%B8%B8%E7%94%A8stl/" class="archive-article-date">
+  	<time datetime="2020-09-02T01:43:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-02</time>
+</a>
+        
+      </header>
     
-    <div class="category-all-page">
-      <h2 align="center">共计&nbsp;7&nbsp;个分类</h2>
-      <ul class="category-list-item-list"><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a><span class="category-list-item-list-count">2</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/%E6%83%85%E6%84%9F/">情感</a><span class="category-list-item-list-count">1</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><span class="category-list-item-list-count">5</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/%E6%B8%B8%E6%88%8F/">游戏</a><span class="category-list-item-list-count">1</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a><span class="category-list-item-list-count">3</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a><span class="category-list-item-list-count">1</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/%E7%BD%91%E7%BB%9C/">网络</a><span class="category-list-item-list-count">2</span></li></ul>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本片博客介绍一些编程需要用到的一些常见的C++STL<br><a id="more"></a>  </p>
+</blockquote>
+<h3 id="1-list-链表"><a href="#1-list-链表" class="headerlink" title="1.list(链表)"></a>1.list(链表)</h3><p>list是一个线性双向链表结构，不使用连续的内存空间，可以快速的插入删除，不支持随机的内部访问。使用需要包<code>include&lt;list&gt;</code>头文件    </p>
+<ul>
+<li><code>push_front(val)</code> //将val插入链表最前面</li>
+<li><code>push_back(val)</code> //将val插入链表最后面</li>
+<li><code>pop_front()</code> //删除链表最前面的元素</li>
+<li><code>sort()</code> //将链表从小到大排序</li>
+<li><code>remove(val)</code> //删除和val相等的元素</li>
+<li><code>merge(list&lt;T&gt; &amp;x)</code> //将链表x合并进行并清空x,要求链表自身和x有序</li>
+<li><code>splice(iterator i, list &lt;T&gt; &amp; x, iterator first, iterator last)</code>  //在位置 i 前面插入链表 x 中的区间 [first, last)，并在链表 x 中删除该区间  </li>
+</ul>
+<h3 id="2-stack-栈"><a href="#2-stack-栈" class="headerlink" title="2.stack(栈)"></a>2.stack(栈)</h3><p>stack，后进先出，不能遍历。需要包含<code>include&lt;stack&gt;</code>头文件    </p>
+<ul>
+<li><code>stack&lt;int&gt; s</code> //创建实例</li>
+<li><code>s.push(val)</code> //val入栈</li>
+<li><code>a=s.top()</code> //返回栈顶元素</li>
+<li><code>s.pop()</code> //出栈</li>
+<li><code>bool flag=s.empty()</code> //判断是否为空</li>
+<li><code>len=s.size()</code> //栈的长度</li>
+</ul>
+<h3 id="3-queue-队列"><a href="#3-queue-队列" class="headerlink" title="3.queue(队列)"></a>3.queue(队列)</h3><p>queue，先进先出，不能遍历。需要包含include<queue>头文件  </p>
+<ul>
+<li><code>queue&lt;int&gt; q</code> //创建实例</li>
+<li><code>q.push(val)</code> //val入队</li>
+<li><code>a=q.front()</code> //返回队头</li>
+<li><code>b=q.back()</code> //返回队尾</li>
+<li><code>q.pop()</code> //出队</li>
+<li><code>bool flag=q.empty()</code> //队列是否为空</li>
+<li><code>len=q.size()</code> //队列长度</li>
+</ul>
+<h3 id="4-priority-queue-优先队列"><a href="#4-priority-queue-优先队列" class="headerlink" title="4.priority_queue(优先队列)"></a>4.priority_queue(优先队列)</h3><p>可以认为是是队列的一种，但是会按照一种优先规律，将优先级高的元素始终置于队头。底层通过堆实现，默认大根堆  </p>
+<ul>
+<li>基本操作和队列类似</li>
+<li><code>priority_queue&lt;int&gt; q</code> //创建实例，默认大顶堆</li>
+<li><code>priority_queue &lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; q</code> //小顶堆  </li>
+<li>也可以cmp实现</li>
+<li>  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmp</span>&#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &gt; b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="5-set-集合"><a href="#5-set-集合" class="headerlink" title="5.set(集合)"></a>5.set(集合)</h3><p>set内部通过红黑树实现，实现了一个自动排序，元素值唯一的容器。查找的复杂度为(logn)，set中的元素不能直接被修改，在其中查找属于二分查找。使用需要包含<code>include&lt;set&gt;</code>头文件  </p>
+<ul>
+<li><code>set&lt;int&gt; s</code> //创建实例</li>
+<li><code>set&lt;int&gt;::iterator it</code> // 迭代器</li>
+<li><code>s.insert(val)</code> //插入val</li>
+<li><code>s.erase(iterator it)</code> //删除</li>
+<li><code>s.lower_bound(val)</code> //返回第一个大于等于val的值</li>
+<li><code>s.upper_bound(val)</code> //返回第一个大于val的值</li>
+</ul>
+<h3 id="6-vector-向量"><a href="#6-vector-向量" class="headerlink" title="6.vector(向量)"></a>6.vector(向量)</h3><p>可以近似地认为是一个动态的数组，使用需要包含<code>include&lt;vector&gt;</code>头文件  </p>
+<ul>
+<li><code>vector&lt;int&gt; v</code> //创建实例</li>
+<li><code>vector&lt;int&gt; v(10,1)</code> //创建有10个元素的向量，初始值是1</li>
+<li>``int b[7]={1,2,3,4,5,9,8};vector<int> a(b,b+7);```</li>
+<li><code>vector&lt;int&gt;::iterator it</code> //创建迭代器</li>
+<li>  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(it=vec.<span class="built_in">begin</span>();it!=vec.<span class="built_in">end</span>();it++)</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;*it&lt;&lt;<span class="built_in">endl</span>;<span class="comment">//迭代器访问</span></span><br></pre></td></tr></table></figure></li>
+<li><code>v.push_back(val)</code> //尾部插入val</li>
+<li><code>v.pop_back()</code> //尾部删除</li>
+<li><code>v.insert(v.begin()+i,a)</code> //在第i+1个元素前面插入a</li>
+<li><code>v.erase(v.begin()+2)</code> //删除第3个元素</li>
+<li><code>v.size()</code> //向量大小   </li>
+</ul>
+<h3 id="7-map-amp-amp-pair-关联"><a href="#7-map-amp-amp-pair-关联" class="headerlink" title="7.map&amp;&amp;pair(关联)"></a>7.map&amp;&amp;pair(关联)</h3><p>map内部也是通过红黑树实现的，map的形式为一个键值对，和set一样查找的复杂度为logn，可以修改value，不能修改key.使用需要包含<code>include&lt;map&gt;</code>  </p>
+<ul>
+<li><code>map &lt;int,string&gt; m</code> //创建了一个以int为key，string为value的键值对。</li>
+<li><code>map &lt;int,string&gt;::iterator it</code></li>
+<li><code>m.insert(make_pair(1,&quot;one&quot;))</code> / <code>m[1]=&quot;one&quot;</code></li>
+<li><code>m.size()</code> //map的大小</li>
+<li><code>m.erase()</code> //删除元素</li>
+<li><code>m.count(val)</code> //返回val出现的次数0/1  </li>
+</ul>
+<h3 id="8-常用算法"><a href="#8-常用算法" class="headerlink" title="8.常用算法"></a>8.常用算法</h3><ul>
+<li><code>sort(start，end，排序方法)</code></li>
+<li><code>reserve(vec.begin(),vec.end())</code> //反转容器</li>
+<li><code>make_heap(begin(),end())</code> //对一个序列建立一个堆，默认大根堆，greater<int>()则是小根堆</li>
+</ul>
+<h3 id="end"><a href="#end" class="headerlink" title="end!"></a><center>end!</center></h3>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢大家的打赏！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpeg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://georgezhang.top/2020/c-%E5%B8%B8%E7%94%A8stl/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2020/8%E6%9C%88%E8%A7%82%E5%89%A7%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">8月观剧总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-list-%E9%93%BE%E8%A1%A8"><span class="toc-number">1.</span> <span class="toc-text">1.list(链表)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-stack-%E6%A0%88"><span class="toc-number">2.</span> <span class="toc-text">2.stack(栈)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-queue-%E9%98%9F%E5%88%97"><span class="toc-number">3.</span> <span class="toc-text">3.queue(队列)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-priority-queue-%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97"><span class="toc-number">4.</span> <span class="toc-text">4.priority_queue(优先队列)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-set-%E9%9B%86%E5%90%88"><span class="toc-number">5.</span> <span class="toc-text">5.set(集合)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-vector-%E5%90%91%E9%87%8F"><span class="toc-number">6.</span> <span class="toc-text">6.vector(向量)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-map-amp-amp-pair-%E5%85%B3%E8%81%94"><span class="toc-number">7.</span> <span class="toc-text">7.map&amp;&amp;pair(关联)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95"><span class="toc-number">8.</span> <span class="toc-text">8.常用算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#end"><span class="toc-number">9.</span> <span class="toc-text">end!</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '1710dc0379211e7325c4',
+  	clientSecret: '4acb94f64e39b7da5cd2d0d7811e5042c5824bec',
+  	repo: 'qiangzhang0925.github.io',
+  	owner: 'qiangzhang0925',
+  	admin: ['qiangzhang0925'],
+  	id: 'Wed Sep 02 2020 09:43:04 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+
     
-  </article>
+
+  
+
+
           </div>
         </div>
       </div>
@@ -221,7 +498,7 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
