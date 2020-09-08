@@ -6,24 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://georgezhang.top">
-  <title>What is RL | flipped的个人博客</title>
+  <title>c++排序总结 | flipped的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本篇文章介绍基本的Reinforcement Learning的基本概念、特点和分类">
+  <meta name="description" content="最近在leetcode上做题的时候遇到一些排序变形的题，这篇文章把基础的排序做一个总结。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="What is RL">
-<meta property="og:url" content="https://georgezhang.top/2020/What-is-RL/index.html">
+<meta property="og:title" content="c++排序总结">
+<meta property="og:url" content="https://georgezhang.top/2020/c-%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="flipped的个人博客">
-<meta property="og:description" content="本篇文章介绍基本的Reinforcement Learning的基本概念、特点和分类">
+<meta property="og:description" content="最近在leetcode上做题的时候遇到一些排序变形的题，这篇文章把基础的排序做一个总结。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827090715.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827100556.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827102402.png">
-<meta property="article:published_time" content="2020-08-27T14:57:24.000Z">
-<meta property="article:modified_time" content="2020-08-27T02:24:38.728Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95.png">
+<meta property="article:published_time" content="2020-09-08T01:42:44.000Z">
+<meta property="article:modified_time" content="2020-09-08T13:24:58.158Z">
 <meta property="article:author" content="george.zhang">
-<meta property="article:tag" content="强化学习">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="排序">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827090715.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95.png">
   
     <link rel="alternative" href="/atom.xml" title="flipped的个人博客" type="application/atom+xml">
   
@@ -187,20 +186,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-What-is-RL" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-c-排序总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      What is RL
+      c++排序总结
     </h1>
   
 
         
-        <a href="/2020/What-is-RL/" class="archive-article-date">
-  	<time datetime="2020-08-27T14:57:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-27</time>
+        <a href="/2020/c-%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2020-09-08T01:42:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-08</time>
 </a>
         
       </header>
@@ -208,47 +207,131 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>本篇文章介绍基本的Reinforcement Learning的基本概念、特点和分类<br><a id="more"></a></p>
+<p>最近在leetcode上做题的时候遇到一些排序变形的题，这篇文章把基础的排序做一个总结。<br><a id="more"></a>  </p>
 </blockquote>
-<h3 id="什么是强化学习"><a href="#什么是强化学习" class="headerlink" title="什么是强化学习"></a>什么是强化学习</h3><p>&ensp;&ensp;根据<strong>维基百科</strong>的定义：强化学习（Reinforcement Learning，简称RL）是<code>机器学习</code>中的一个领域，强调如何基于<strong>环境</strong>而行动，以取得最大化的预期利益.<br>强化学习包括4个要素:</p>
+<h3 id="排序算法简述"><a href="#排序算法简述" class="headerlink" title="排序算法简述"></a>排序算法简述</h3><h4 id="1-分类"><a href="#1-分类" class="headerlink" title="1.分类"></a>1.分类</h4><p>10种常见的排序算法可以分为两类：</p>
 <ul>
-<li>策略（policy）：环境的感知状态到行动的映射方式</li>
-<li>反馈（Reward）：环境对智能体行动的反馈</li>
-<li>价值函数（Value-function）：评估状态的价值函数，状态的价值即从当前状态开始，期望在未来获得的奖赏</li>
-<li>环境模型（model）：模拟环境的行为<br><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827090715.png" alt=""><h3 id="RL的分类"><a href="#RL的分类" class="headerlink" title="RL的分类"></a>RL的分类</h3><strong>强化学习的分类汇总：</strong>  </li>
-<li>第一种分类方式<ul>
-<li><strong>model-free</strong>:QLearning、Sarsa、Policy Gradients</li>
-<li><strong>model-based</strong>:需要对环境增加建模的步骤</li>
+<li>非线性时间排序算法：通过比较决定元素的相对次序，时间复杂度<strong>下界为<code>O(nlogn)</code></strong>,非线性时间运行。</li>
+<li>线性时间排序算法：不通过比较来决定元素的相对次序，可以突破非线性时间排序的时间下界，以线性时间运行。 </li>
 </ul>
-</li>
-<li>第二种分类方式<ul>
-<li><strong>基于概率（policy-based）</strong>：Policy-gradients</li>
-<li><strong>基于价值（value-based）</strong>：QLearing、Sarsa</li>
-<li><strong>Actor-Critic</strong>:结合了上面的两种方式，Actor基于概率做出动作，Critic会对做出的动作给出价值</li>
-</ul>
-</li>
-<li>第三种分类方式<ul>
-<li><strong>回合更新（Monto-Carlo update）</strong>:Monto-Carlo Learning</li>
-<li><strong>单步更新（Temporal-difference update）</strong>：QLearning、Sarsa</li>
-</ul>
-</li>
-<li>第四种分类方式<ul>
-<li><strong>在线学习（on-policy）</strong>:Sarsa、Sarsa(λ)</li>
-<li><strong>离线学习（off-policy）</strong>:QLearning、DQN</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827100556.png" alt=""></p>
-<h3 id="RL的特点"><a href="#RL的特点" class="headerlink" title="RL的特点"></a>RL的特点</h3><p>强化学习的特点：</p>
+<p><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95.png" alt="">  </p>
+<h4 id="2-算法复杂度"><a href="#2-算法复杂度" class="headerlink" title="2.算法复杂度"></a>2.算法复杂度</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>排序算法</th>
+<th>时间复杂度(平均)</th>
+<th>时间复杂度(最坏)</th>
+<th>时间复杂度(最好)</th>
+<th>空间复杂度</th>
+<th>稳定性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插入排序</td>
+<td>$O\left(n^{2}\right)$</td>
+<td>$O\left(n^{2}\right)$</td>
+<td>$O\left(n\right)$</td>
+<td>$O(1)$</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>希尔排序</td>
+<td>$O\left(n^{1.3}\right)$</td>
+<td>$O\left(n^{2}\right)$</td>
+<td>$O\left(n\right)$</td>
+<td>$O(1)$</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>选择排序</td>
+<td>$O\left(n^{2}\right)$</td>
+<td>$O\left(n^{2}\right)$</td>
+<td>$O\left(n\right)$</td>
+<td>$O(1)$</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>$O\left(n \log _{2} n\right)$</td>
+<td>$O\left(n \log _{2} n\right)$</td>
+<td>$O\left(n \log _{2} n\right)$</td>
+<td>$O(1)$</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>冒泡排序</td>
+<td>$O\left(n^{2}\right)$</td>
+<td>$O\left(n^{2}\right)$</td>
+<td>$O\left(n\right)$</td>
+<td>$O(1)$</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>$O\left(n \log _{2} n\right)$</td>
+<td>$O\left(n^{2}\right)$</td>
+<td>$O\left(n \log _{2} n\right)$</td>
+<td>$O\left(n \log _{2} n\right)$</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>$O\left(n \log _{2} n\right)$</td>
+<td>$O\left(n \log _{2} n\right)$</td>
+<td>$O\left(n \log _{2} n\right)$</td>
+<td>$O(n)$</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>基数排序</td>
+<td>$O\left(n^{*} k\right)$</td>
+<td>$O\left(n^{*} k\right)$</td>
+<td>$O\left(n^{*} k\right)$</td>
+<td>$O\left(n{+} k\right)$</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>桶排序</td>
+<td>$O\left(n{+} k\right)$</td>
+<td>$O\left(n{+} k\right)$</td>
+<td>$O\left(n{+} k\right)$</td>
+<td>$O\left(n{+} k\right)$</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>计数排序</td>
+<td>$O\left(n{+} k\right)$</td>
+<td>$O\left(n{+} k\right)$</td>
+<td>$O\left(n{+} k\right)$</td>
+<td>$O\left(n{+} k\right)$</td>
+<td>稳定</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="排序算法实现"><a href="#排序算法实现" class="headerlink" title="排序算法实现"></a>排序算法实现</h3><h4 id="1-冒泡排序"><a href="#1-冒泡排序" class="headerlink" title="1.冒泡排序"></a>1.冒泡排序</h4><p>冒泡排序是比较相邻数据，如果反序则交换。第一遍扫描最大的数在数组最后，第二遍第2大的数放在倒数第二的位置……，直至n-1遍，排序完成。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">BubbleSort</span><span class="params">(<span class="keyword">int</span>* a,<span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a==<span class="literal">NULL</span>||len&lt;=<span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len-i<span class="number">-1</span>;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j]&gt;a[j+<span class="number">1</span>])&#123;</span><br><span class="line">                a[j]=a[j]^a[j+<span class="number">1</span>];</span><br><span class="line">                a[j+<span class="number">1</span>]=a[j]^a[j+<span class="number">1</span>];</span><br><span class="line">                a[j]=a[j]^a[j+<span class="number">1</span>];</span><br><span class="line">                <span class="comment">//swap(a[j],a[j+1])</span></span><br><span class="line">            &#125; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-快速排序"><a href="#2-快速排序" class="headerlink" title="2.快速排序"></a>2.快速排序</h4><p>快速排序设置<code>left</code>和<code>right</code>指针，和<code>基准值base</code>(一般取数组left位置的数，随机选取可以与left数据交换后进行快排)。left向后找比base大的数，right向前找比base小的数，然后进行交换，重复上述步骤直至left，right重合。此时数组分为两个部分：比base大的部分和小的部分，再对这两个部分进行快排……，最终快排完成。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QuickSort</span><span class="params">(<span class="keyword">int</span>* a,<span class="keyword">int</span> left,<span class="keyword">int</span> right)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(left&gt;=right) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> i=left,j=right,base=a[left];</span><br><span class="line">    <span class="keyword">while</span>(i&lt;j)&#123;</span><br><span class="line">        <span class="keyword">while</span>(a[j]&gt;=base&amp;&amp;i&lt;j) j--;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;j) a[i++]=a[j];</span><br><span class="line">        <span class="keyword">while</span>(a[i]&lt;=base&amp;&amp;i&lt;j) i++;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;j) a[j]=a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    a[i]=base;</span><br><span class="line">    QuickSort(a,left,i<span class="number">-1</span>);</span><br><span class="line">    QucickSort(a,i+<span class="number">1</span>,right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-直接插入排序"><a href="#3-直接插入排序" class="headerlink" title="3.直接插入排序"></a>3.直接插入排序</h4><p>直接插入排序的思想：对于一个数组A[0,n]的排序问题，假设A[0,n-1]排序问题已经解决，考虑A[n]的值，从右向左扫描数组，直到第一个小于等于A[n]的元素，将A[n]插入这个元素后面。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertSort</span><span class="params">(<span class="keyword">int</span>* a,<span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(len&lt;=<span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;len;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&gt;<span class="number">0</span>;--j)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j]&lt;=a[j<span class="number">-1</span>])&#123;<span class="comment">//升序 a[j]&gt;=a[j-1]:降序</span></span><br><span class="line">                swap(a[j],a[j+<span class="number">1</span>]);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-希尔排序"><a href="#4-希尔排序" class="headerlink" title="4.希尔排序"></a>4.希尔排序</h4><p>希尔排序也是一种插入排序，也称缩小增量排序。希尔排序是把元素<strong>按照下标的一定增量分组</strong>，对每一组使用直接插入排序；随着增量逐渐减小，每组的元素越来越多，当增量为1时，整个数组被分为一组，算法结束。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ShellSort</span><span class="params">(<span class="keyword">int</span>* a,<span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(len&lt;=<span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> gap=len/<span class="number">2</span>;gap&gt;=<span class="number">1</span>;gap=/<span class="number">2</span>)&#123;<span class="comment">//增量</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;gap;k++)&#123;<span class="comment">//分组</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=k+gap;i&lt;len;i+=gap)&#123;<span class="comment">//简单插入排序</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&gt;k;j-=gap)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(a[j]&lt;a[j-gap])&#123;</span><br><span class="line">                        swap(a[j],a[j-gap]);</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-选择排序"><a href="#5-选择排序" class="headerlink" title="5.选择排序"></a>5.选择排序</h4><p>选择排序是一种简单直观的排序方法。初始时在序列中找到最小(大)元素，放到序列最前面作为已排序序列；然后，从剩余未排序元素中继续寻找最小(大)的元素，放在已经排序序列的末尾，直至排序结束。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SelectSort</span><span class="params">(<span class="keyword">int</span>* a,<span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(len&lt;=<span class="number">1</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> index;<span class="comment">//记录最值的位置</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        index=i;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;len;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j]&lt;a[index]) index=i;</span><br><span class="line">        &#125;</span><br><span class="line">        swap(a[i],a[index]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="6-堆排序"><a href="#6-堆排序" class="headerlink" title="6.堆排序"></a>6.堆排序</h4><p>堆实际上是一棵完全二叉树。堆的每一个父节点大于或者小于其子节点，堆的每一个左子树和右子树也是一个堆。堆分为大顶堆和小顶堆。堆的一般用数组存储，i节点的父节点的下标是(i-1)/2,左右子节点的下标分别是2i+1,2i+2.<br>堆排序分为3个步骤：</p>
 <ul>
-<li>起源于动物学习心理学的试错法（trial-and-error），因此符合行为心理学</li>
-<li>寻求探索（exploration）和采用（exploitation）之间的权衡：强化学习一面要采用（exploitation）已经发现的有效行动，另一方面也要探索（exploration）那些没有被认可的行动，已找到更好的解决方案</li>
-<li>考虑整个问题而不是子问题</li>
-<li>通用AI解决方案<br><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827102402.png" alt=""><blockquote>
-<p>强化学习是机器学习的重要部分，在为机器学习开拓新方向上做出了巨大的贡献。强化学习突破了<strong>非监督学习</strong>，为机器和软件如何获取最优化的结果给出了一种全新的思路。它将如何最优化主体的表现和如何优化这一能力之间建立起了强有力的链接。通过<strong>奖励函数</strong>的反馈来帮助机器改进自身的行为和算法。</p>
-</blockquote>
+<li>建堆(升序：大堆；降序：小堆)</li>
+<li>交换数据</li>
+<li>向下调整  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调整</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AdjustHeap</span><span class="params">(<span class="keyword">int</span>* a,<span class="keyword">int</span> node,<span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">    <span class="comment">//node是需要调整的节点下标</span></span><br><span class="line">    <span class="keyword">int</span> index=node;</span><br><span class="line">    <span class="keyword">int</span> child=<span class="number">2</span>*child+<span class="number">1</span>;<span class="comment">//左孩子</span></span><br><span class="line">    <span class="keyword">while</span>(child&lt;len)&#123;</span><br><span class="line">        <span class="keyword">if</span>(child+<span class="number">1</span>&lt;len&amp;&amp;a[child]&lt;a[child+<span class="number">1</span>]) child++;<span class="comment">//判断左右节点的较大值</span></span><br><span class="line">        <span class="keyword">if</span>(a[index]&gt;=a[child]) <span class="keyword">break</span>;</span><br><span class="line">        swap(a[index],a[child]);</span><br><span class="line">        index=child;</span><br><span class="line">        child=<span class="number">2</span>*index+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//建堆</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MakeHeap</span><span class="params">(<span class="keyword">int</span>* a,<span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len/<span class="number">2</span>;i--)&#123;</span><br><span class="line">        AdjustHeap(a,i,len);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//排序</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HeapSort</span><span class="params">(<span class="keyword">int</span>* a,<span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">    MakeHeap(a,len);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=len<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        swap(a[i],a[<span class="number">0</span>]);</span><br><span class="line">        AdjustHeap(a,<span class="number">0</span>,i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
+<h4 id="7-归并排序"><a href="#7-归并排序" class="headerlink" title="7.归并排序"></a>7.归并排序</h4><p>归并排序采用经典的分治思想(divide-and-conquer),divide是问题分解成小的问题递归求解,conquer再把子问题的答案合并起来。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Merge</span><span class="params">(<span class="keyword">int</span>* a,<span class="keyword">int</span> <span class="built_in">begin</span>,<span class="keyword">int</span> mid,<span class="keyword">int</span> <span class="built_in">end</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i=<span class="built_in">begin</span>,j=mid+<span class="number">1</span>,k=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> len=<span class="built_in">end</span>-<span class="built_in">begin</span>+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span>* tmp=<span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=mid&amp;&amp;j&lt;=<span class="built_in">end</span>) tmp[k++]=a[i]&lt;=a[j]?a[i++]:a[j++];</span><br><span class="line">    <span class="keyword">while</span>(i&lt;=mid) tmp[k++]=a[i++];</span><br><span class="line">    <span class="keyword">while</span>(j&lt;=<span class="built_in">end</span>) tmp[k++]=a[j++];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;len;k++) a[<span class="built_in">begin</span>+k]=tmp[k];</span><br><span class="line">    <span class="keyword">delete</span>[] tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MergeSort</span><span class="params">(<span class="keyword">int</span>* a,<span class="keyword">int</span> <span class="built_in">begin</span>,<span class="keyword">int</span> <span class="built_in">end</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">begin</span>==<span class="built_in">end</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> mid=(<span class="built_in">begin</span>+<span class="built_in">end</span>)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    MergeSort(a,<span class="built_in">begin</span>,mid);</span><br><span class="line">    MergerSort(a,mid+<span class="number">1</span>,<span class="built_in">end</span>);</span><br><span class="line">    Merge(a,<span class="built_in">begin</span>,mid,<span class="built_in">end</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="end"><a href="#end" class="headerlink" title="end!"></a><center>end!</center></h3>
       
 
@@ -288,7 +371,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">强化学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">排序</a>
         		</li>
       		
 		</ul>
@@ -300,7 +387,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/机器学习//" class="article-tag-list-link color5">机器学习</a>
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
         		</li>
       		
 		</ul>
@@ -355,7 +442,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://georgezhang.top/2020/What-is-RL/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://georgezhang.top/2020/c-%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -369,18 +456,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/logistic-regression/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          logistic regression
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/%E5%86%B3%E7%AD%96%E6%A0%91%E5%92%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">决策树和随机森林</div>
+    <a href="/2020/c-%E5%B8%B8%E7%94%A8stl/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">c++常用stl</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -407,7 +485,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">什么是强化学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RL%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text">RL的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RL%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">RL的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#end"><span class="toc-number">4.</span> <span class="toc-text">end!</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%AE%80%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">排序算法简述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%88%86%E7%B1%BB"><span class="toc-number">1.1.</span> <span class="toc-text">1.分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-number">1.2.</span> <span class="toc-text">2.算法复杂度</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">排序算法实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F"><span class="toc-number">2.1.</span> <span class="toc-text">1.冒泡排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-number">2.2.</span> <span class="toc-text">2.快速排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-number">2.3.</span> <span class="toc-text">3.直接插入排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F"><span class="toc-number">2.4.</span> <span class="toc-text">4.希尔排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="toc-number">2.5.</span> <span class="toc-text">5.选择排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%A0%86%E6%8E%92%E5%BA%8F"><span class="toc-number">2.6.</span> <span class="toc-text">6.堆排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-number">2.7.</span> <span class="toc-text">7.归并排序</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#end"><span class="toc-number">3.</span> <span class="toc-text">end!</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -440,7 +518,7 @@ if(true){
   	repo: 'qiangzhang0925.github.io',
   	owner: 'qiangzhang0925',
   	admin: ['qiangzhang0925'],
-  	id: 'Thu Aug 27 2020 22:57:24 GMT+0800',
+  	id: 'Tue Sep 08 2020 09:42:44 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 

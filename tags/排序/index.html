@@ -6,24 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://georgezhang.top">
-  <title>What is RL | flipped的个人博客</title>
+  <title>Tag: 排序 | flipped的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本篇文章介绍基本的Reinforcement Learning的基本概念、特点和分类">
-<meta property="og:type" content="article">
-<meta property="og:title" content="What is RL">
-<meta property="og:url" content="https://georgezhang.top/2020/What-is-RL/index.html">
+  <meta name="description" content="life gonna be like this way">
+<meta property="og:type" content="website">
+<meta property="og:title" content="flipped的个人博客">
+<meta property="og:url" content="https://georgezhang.top/tags/%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="flipped的个人博客">
-<meta property="og:description" content="本篇文章介绍基本的Reinforcement Learning的基本概念、特点和分类">
+<meta property="og:description" content="life gonna be like this way">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827090715.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827100556.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827102402.png">
-<meta property="article:published_time" content="2020-08-27T14:57:24.000Z">
-<meta property="article:modified_time" content="2020-08-27T02:24:38.728Z">
 <meta property="article:author" content="george.zhang">
-<meta property="article:tag" content="强化学习">
+<meta property="article:tag" content="SEU计算机在读硕士">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827090715.png">
   
     <link rel="alternative" href="/atom.xml" title="flipped的个人博客" type="application/atom+xml">
   
@@ -187,269 +181,75 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-What-is-RL" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      What is RL
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/c-%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2020-09-08T01:42:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-08</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/c-%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/">c++排序总结</a>
     </h1>
   
 
-        
-        <a href="/2020/What-is-RL/" class="archive-article-date">
-  	<time datetime="2020-08-27T14:57:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本篇文章介绍基本的Reinforcement Learning的基本概念、特点和分类<br><a id="more"></a></p>
-</blockquote>
-<h3 id="什么是强化学习"><a href="#什么是强化学习" class="headerlink" title="什么是强化学习"></a>什么是强化学习</h3><p>&ensp;&ensp;根据<strong>维基百科</strong>的定义：强化学习（Reinforcement Learning，简称RL）是<code>机器学习</code>中的一个领域，强调如何基于<strong>环境</strong>而行动，以取得最大化的预期利益.<br>强化学习包括4个要素:</p>
-<ul>
-<li>策略（policy）：环境的感知状态到行动的映射方式</li>
-<li>反馈（Reward）：环境对智能体行动的反馈</li>
-<li>价值函数（Value-function）：评估状态的价值函数，状态的价值即从当前状态开始，期望在未来获得的奖赏</li>
-<li>环境模型（model）：模拟环境的行为<br><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827090715.png" alt=""><h3 id="RL的分类"><a href="#RL的分类" class="headerlink" title="RL的分类"></a>RL的分类</h3><strong>强化学习的分类汇总：</strong>  </li>
-<li>第一种分类方式<ul>
-<li><strong>model-free</strong>:QLearning、Sarsa、Policy Gradients</li>
-<li><strong>model-based</strong>:需要对环境增加建模的步骤</li>
-</ul>
-</li>
-<li>第二种分类方式<ul>
-<li><strong>基于概率（policy-based）</strong>：Policy-gradients</li>
-<li><strong>基于价值（value-based）</strong>：QLearing、Sarsa</li>
-<li><strong>Actor-Critic</strong>:结合了上面的两种方式，Actor基于概率做出动作，Critic会对做出的动作给出价值</li>
-</ul>
-</li>
-<li>第三种分类方式<ul>
-<li><strong>回合更新（Monto-Carlo update）</strong>:Monto-Carlo Learning</li>
-<li><strong>单步更新（Temporal-difference update）</strong>：QLearning、Sarsa</li>
-</ul>
-</li>
-<li>第四种分类方式<ul>
-<li><strong>在线学习（on-policy）</strong>:Sarsa、Sarsa(λ)</li>
-<li><strong>离线学习（off-policy）</strong>:QLearning、DQN</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827100556.png" alt=""></p>
-<h3 id="RL的特点"><a href="#RL的特点" class="headerlink" title="RL的特点"></a>RL的特点</h3><p>强化学习的特点：</p>
-<ul>
-<li>起源于动物学习心理学的试错法（trial-and-error），因此符合行为心理学</li>
-<li>寻求探索（exploration）和采用（exploitation）之间的权衡：强化学习一面要采用（exploitation）已经发现的有效行动，另一方面也要探索（exploration）那些没有被认可的行动，已找到更好的解决方案</li>
-<li>考虑整个问题而不是子问题</li>
-<li>通用AI解决方案<br><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200827102402.png" alt=""><blockquote>
-<p>强化学习是机器学习的重要部分，在为机器学习开拓新方向上做出了巨大的贡献。强化学习突破了<strong>非监督学习</strong>，为机器和软件如何获取最优化的结果给出了一种全新的思路。它将如何最优化主体的表现和如何优化这一能力之间建立起了强有力的链接。通过<strong>奖励函数</strong>的反馈来帮助机器改进自身的行为和算法。</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="end"><a href="#end" class="headerlink" title="end!"></a><center>end!</center></h3>
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢大家的打赏！<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/alipay.jpeg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">强化学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">排序</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/机器学习//" class="article-tag-list-link color5">机器学习</a>
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://georgezhang.top/2020/What-is-RL/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/logistic-regression/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          logistic regression
-        
-      </div>
-    </a>
   
   
-    <a href="/2020/%E5%86%B3%E7%AD%96%E6%A0%91%E5%92%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">决策树和随机森林</div>
-      <i class="icon-circle-right"></i>
-    </a>
+    </div></section>
   
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">什么是强化学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RL%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text">RL的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RL%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">RL的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#end"><span class="toc-number">4.</span> <span class="toc-text">end!</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  
-  
-
-  
-
-  
-
-  
-    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<script type="text/javascript">
-
-if(true){
-	var gitalk = new Gitalk({
-  	clientID: '1710dc0379211e7325c4',
-  	clientSecret: '4acb94f64e39b7da5cd2d0d7811e5042c5824bec',
-  	repo: 'qiangzhang0925.github.io',
-  	owner: 'qiangzhang0925',
-  	admin: ['qiangzhang0925'],
-  	id: 'Thu Aug 27 2020 22:57:24 GMT+0800',
-  	distractionFreeMode: 'true'
-})
-gitalk.render('gitalk-container') 
-}
-</script>
 
     
-
-  
 
 
           </div>
@@ -476,9 +276,9 @@ gitalk.render('gitalk-container')
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
