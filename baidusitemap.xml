@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://georgezhang.top/2020/%E6%B8%B8%E6%88%8F%E4%BA%A4%E6%B5%81/</loc>
+    <lastmod>2020-09-12</lastmod>
+  </url>
+  <url>
+    <loc>https://georgezhang.top/2020/UML%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2020-09-12</lastmod>
+  </url>
+  <url>
     <loc>https://georgezhang.top/2020/leetcode39-%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0/</loc>
     <lastmod>2020-09-09</lastmod>
   </url>
@@ -59,10 +67,6 @@
   <url>
     <loc>https://georgezhang.top/2020/My-first-blog/</loc>
     <lastmod>2020-08-18</lastmod>
-  </url>
-  <url>
-    <loc>https://georgezhang.top/2020/%E6%B8%B8%E6%88%8F%E4%BA%A4%E6%B5%81/</loc>
-    <lastmod>2020-08-17</lastmod>
   </url>
   <url>
     <loc>https://georgezhang.top/2020/%E4%B8%80%E5%91%A8%E8%A7%82%E5%89%A7%E8%AE%B0%E5%BD%95/</loc>
