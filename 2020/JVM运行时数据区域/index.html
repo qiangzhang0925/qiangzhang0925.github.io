@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://georgezhang.top">
-  <title>flipped的个人博客</title>
+  <title>JVM运行时数据区域 | flipped的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="life gonna be like this way">
-<meta property="og:type" content="website">
-<meta property="og:title" content="flipped的个人博客">
-<meta property="og:url" content="https://georgezhang.top/index.html">
+  <meta name="description" content="JVM在执行java程序时会把它管理的内存划分为若干不同的数据区域。这些区域有的随着虚拟机进程的启动而一直存在，有的则是依赖用户线程的启动和结束而建立和销毁。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM运行时数据区域">
+<meta property="og:url" content="https://georgezhang.top/2020/JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F/index.html">
 <meta property="og:site_name" content="flipped的个人博客">
-<meta property="og:description" content="life gonna be like this way">
+<meta property="og:description" content="JVM在执行java程序时会把它管理的内存划分为若干不同的数据区域。这些区域有的随着虚拟机进程的启动而一直存在，有的则是依赖用户线程的启动和结束而建立和销毁。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200915163548.png">
+<meta property="article:published_time" content="2020-09-15T08:26:12.000Z">
+<meta property="article:modified_time" content="2020-09-15T11:12:38.629Z">
 <meta property="article:author" content="george.zhang">
-<meta property="article:tag" content="SEU计算机在读硕士">
+<meta property="article:tag" content="JVM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200915163548.png">
   
     <link rel="alternative" href="/atom.xml" title="flipped的个人博客" type="application/atom+xml">
   
@@ -181,16 +185,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-JVM运行时数据区域" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-JVM运行时数据区域" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F/">JVM运行时数据区域</a>
+    <h1 class="article-title" itemprop="name">
+      JVM运行时数据区域
     </h1>
   
 
@@ -204,12 +206,49 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>JVM在执行java程序时会把它管理的内存划分为若干<strong>不同的数据区域</strong>。这些区域有的随着虚拟机进程的启动而一直存在，有的则是依赖用户线程的启动和结束而建立和销毁。<br>
-        
-          <a class="article-more-a" href="/2020/JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F/#more">more >></a>
-        
+<p>JVM在执行java程序时会把它管理的内存划分为若干<strong>不同的数据区域</strong>。这些区域有的随着虚拟机进程的启动而一直存在，有的则是依赖用户线程的启动和结束而建立和销毁。<br><a id="more"></a>  </p>
+</blockquote>
+<p>JVM虚拟机运行时数据区:  </p>
+<p><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200915163548.png" alt=""></p>
+<h4 id="1-程序计数器"><a href="#1-程序计数器" class="headerlink" title="1.程序计数器"></a>1.程序计数器</h4><p>PC是一块较小的内存空间，可以看作是<strong>当前线程</strong>所执行的<strong>字节码的行号指示器</strong>。字节码解释器工作时就是通过改变这个计数器的值来选取下条需要执行的字节码指令，它是程序控制流的指示器，分支，循环，跳转，异常处理，线程恢复都依赖它来完成。<br>JVM的多线程是通过线程轮流切换，分配处理器执行时间的方式实现的。为了线程切换后能够回到正确的执行位置，每一个线程都有一个独立的程序计数器，各条线程之间计数器互不影响，独立存储，我们称这类内存为”线程私有”的内存。</p>
+<h4 id="2-JVM栈"><a href="#2-JVM栈" class="headerlink" title="2.JVM栈"></a>2.JVM栈</h4><p>JVM stack也是线程私有的，生命周期与线程同步。其描述的是java方法执行时线程内存模型：每个方法被执行时，JVM同步创建stackframe用于存储<strong>局部变量表，操作数栈，动态连接，方法出口</strong>等信息。方法执行的过程对应着stack在VM中从入栈到出栈的过程。<br>局部变量表存放了编译器可知的各种JVM基本数据类型，对象引用和返回地址(指向一条字节码指令的地址)。这些数据类型在局部变量表中的存储空间以slot来表示。<br>两类异常：</p>
+<ul>
+<li>线程请求的栈深度大于虚拟机所允许的深度：<strong>StackOverflowError</strong></li>
+<li>如果JVM stack容量可以动态扩展，当栈无法申请到足够的内存时：<strong>OutofMemoryError</strong></li>
+</ul>
+<h4 id="3-本地方法栈"><a href="#3-本地方法栈" class="headerlink" title="3.本地方法栈"></a>3.本地方法栈</h4><p>Native Method Stack和JVM Stack发挥的作用十分类似，区别是JVM stack为虚拟机Java方法(也就是字节码)服务，本地方法栈则是为虚拟机使用到的Native方法服务。</p>
+<h4 id="4-java堆"><a href="#4-java堆" class="headerlink" title="4.java堆"></a>4.java堆</h4><p>对于java应用程序来说，Java heap是虚拟机所管理内存中最大的一块，是被所有内存共享的一块内存区域，在<strong>虚拟机启动时创建</strong>。存放的是java对象实例，数组。<br>Java堆是GC管理的内存区域。从内存回收的角度看，大部分是基于分代收集理论设计的，所以java堆中经常出现”新生代”，”老年代”，”永久代”，”Eden空间”,”From survivor空间”,”to survivor空间”等名词。<br>如果从内存分配的角度看，所有的线程共享的java堆中可以划分出很多线程私有的分配缓冲区(Thread local Allocation Buffer,TLAB),以提升对象分配时的效率。<br>java堆既可以实现成固定大小，也可以是可扩展的，不过当前主流的java虚拟机都是按照可扩展来实现的(通过参数-Xmx和-Xms设定)。如果java堆中没有内存完成实例分配，并且也无法拓展时，JVM会抛出<strong>OutOfMemoryError</strong>。</p>
+<h4 id="5-方法区"><a href="#5-方法区" class="headerlink" title="5.方法区"></a>5.方法区</h4><p>method area也是各个线程共享的内存区域，它用于存储已被虚拟机加载的<strong>类型信息，常量，静态变量，即时编译器编译后的代码缓存</strong>等数据。相对而言，垃圾收集行为在这个区域比较少出现，这区域的内存回收目标主要是针对常量池的会后和类型的卸载。  </p>
+<h4 id="6-运行是常量池"><a href="#6-运行是常量池" class="headerlink" title="6.运行是常量池"></a>6.运行是常量池</h4><p>Runtime COnstant Pool是方法区的一部分。Class文件中除了有类的版本，字段，方法，接口等描述信息外，还有一项信息是<strong>常量池表(Constant Pool Table)</strong>，用于存放编译时期生成的各种字面量与符号引用，这个部分的内容在类加载后存放到方法区的运行时常量池中。<br>运行时常量池相对于class文件常量池的另外一个重要特性是具备动态性，java语言不要求常量一定只有编译期才能产生，这种特性被开发人员利用的比较多的是String类的intern()方法。</p>
+<h3 id="end"><a href="#end" class="headerlink" title="end!"></a><center>end!</center></h3>
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢大家的打赏！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpeg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -240,16 +279,75 @@
 
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://georgezhang.top/2020/JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2020/UML%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">UML总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -264,822 +362,55 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-UML总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/UML%E6%80%BB%E7%BB%93/">UML总结</a>
-    </h1>
-  
-
-        
-        <a href="/2020/UML%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-09-12T01:56:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="UML是什么"><a href="#UML是什么" class="headerlink" title="UML是什么"></a>UML是什么</h3><blockquote>
-<p>UML(Unified Modeling Language)是统一建模语言，为<strong>面向对象</strong>系统的产品进行说明，<strong>可视化</strong>和编制文档的一种标准语言。  </p>
-</blockquote>
-        
-          <a class="article-more-a" href="/2020/UML%E6%80%BB%E7%BB%93/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">UML</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/软件技术//" class="article-tag-list-link color5">软件技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/UML%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">1.程序计数器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-JVM%E6%A0%88"><span class="toc-number">2.</span> <span class="toc-text">2.JVM栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="toc-number">3.</span> <span class="toc-text">3.本地方法栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-java%E5%A0%86"><span class="toc-number">4.</span> <span class="toc-text">4.java堆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="toc-number">5.</span> <span class="toc-text">5.方法区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E8%BF%90%E8%A1%8C%E6%98%AF%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="toc-number">6.</span> <span class="toc-text">6.运行是常量池</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#end"><span class="toc-number"></span> <span class="toc-text">end!</span></a>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
+  
+  
+  
 
   
-    <article id="post-leetcode39-组合总数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+
+  
+
+  
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '1710dc0379211e7325c4',
+  	clientSecret: '4acb94f64e39b7da5cd2d0d7811e5042c5824bec',
+  	repo: 'qiangzhang0925.github.io',
+  	owner: 'qiangzhang0925',
+  	admin: ['qiangzhang0925'],
+  	id: 'Tue Sep 15 2020 16:26:12 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/leetcode39-%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0/">leetcode39(组合总数)</a>
-    </h1>
-  
 
-        
-        <a href="/2020/leetcode39-%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0/" class="archive-article-date">
-  	<time datetime="2020-09-09T13:55:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>leetcode39-组合总数，经典的回溯算法应用。<br>
-        
-          <a class="article-more-a" href="/2020/leetcode39-%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/leetcode39-%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-c-排序总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/c-%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/">c++排序总结</a>
-    </h1>
-  
-
-        
-        <a href="/2020/c-%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-09-08T01:42:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>最近在leetcode上做题的时候遇到一些排序变形的题，这篇文章把基础的排序做一个总结。<br>
-        
-          <a class="article-more-a" href="/2020/c-%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">排序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/c-%E6%8E%92%E5%BA%8F%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-c-常用stl" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/c-%E5%B8%B8%E7%94%A8stl/">c++常用stl</a>
-    </h1>
-  
-
-        
-        <a href="/2020/c-%E5%B8%B8%E7%94%A8stl/" class="archive-article-date">
-  	<time datetime="2020-09-02T01:43:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本片博客介绍一些编程需要用到的一些常见的C++STL<br>
-        
-          <a class="article-more-a" href="/2020/c-%E5%B8%B8%E7%94%A8stl/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/c-%E5%B8%B8%E7%94%A8stl/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-8月观剧总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/8%E6%9C%88%E8%A7%82%E5%89%A7%E6%80%BB%E7%BB%93/">8月观剧总结</a>
-    </h1>
-  
-
-        
-        <a href="/2020/8%E6%9C%88%E8%A7%82%E5%89%A7%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-08-31T08:50:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>踩着8月的尾巴终于返校了，回校后也把8月遗留的2部电视剧看完了，特此记录一下。<br>
-        
-          <a class="article-more-a" href="/2020/8%E6%9C%88%E8%A7%82%E5%89%A7%E6%80%BB%E7%BB%93/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">电视和电影</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/生活//" class="article-tag-list-link color3">生活</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/8%E6%9C%88%E8%A7%82%E5%89%A7%E6%80%BB%E7%BB%93/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Ensemble-learning" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/Ensemble-learning/">Ensemble learning</a>
-    </h1>
-  
-
-        
-        <a href="/2020/Ensemble-learning/" class="archive-article-date">
-  	<time datetime="2020-08-30T04:00:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本片文章介绍的是一种机器学习的训练思路-集成学习。<br>
-        
-          <a class="article-more-a" href="/2020/Ensemble-learning/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">集成学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/机器学习//" class="article-tag-list-link color5">机器学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/Ensemble-learning/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-logistic-regression" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/logistic-regression/">logistic regression</a>
-    </h1>
-  
-
-        
-        <a href="/2020/logistic-regression/" class="archive-article-date">
-  	<time datetime="2020-08-28T07:58:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本文介绍一种基础的机器学习分类算法-逻辑回归<br>
-        
-          <a class="article-more-a" href="/2020/logistic-regression/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">逻辑回归</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/机器学习//" class="article-tag-list-link color5">机器学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/logistic-regression/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-What-is-RL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/What-is-RL/">What is RL</a>
-    </h1>
-  
-
-        
-        <a href="/2020/What-is-RL/" class="archive-article-date">
-  	<time datetime="2020-08-27T14:57:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本篇文章介绍基本的Reinforcement Learning的基本概念、特点和分类<br>
-        
-          <a class="article-more-a" href="/2020/What-is-RL/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">强化学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/机器学习//" class="article-tag-list-link color5">机器学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/What-is-RL/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-决策树和随机森林" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/%E5%86%B3%E7%AD%96%E6%A0%91%E5%92%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/">决策树和随机森林</a>
-    </h1>
-  
-
-        
-        <a href="/2020/%E5%86%B3%E7%AD%96%E6%A0%91%E5%92%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" class="archive-article-date">
-  	<time datetime="2020-08-27T11:32:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>这篇文章介绍的是关于机器学习中的决策树和随机森林的相关知识。<br>
-        
-          <a class="article-more-a" href="/2020/%E5%86%B3%E7%AD%96%E6%A0%91%E5%92%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">决策树</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">随机森林</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/机器学习//" class="article-tag-list-link color5">机器学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/%E5%86%B3%E7%AD%96%E6%A0%91%E5%92%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
-    </nav>
   
 
 
@@ -1106,8 +437,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
