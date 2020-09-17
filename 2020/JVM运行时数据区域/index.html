@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200915163548.png">
 <meta property="article:published_time" content="2020-09-15T08:26:12.000Z">
-<meta property="article:modified_time" content="2020-09-15T11:12:38.629Z">
+<meta property="article:modified_time" content="2020-09-17T05:51:15.204Z">
 <meta property="article:author" content="george.zhang">
 <meta property="article:tag" content="JVM">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
 <h4 id="3-本地方法栈"><a href="#3-本地方法栈" class="headerlink" title="3.本地方法栈"></a>3.本地方法栈</h4><p>Native Method Stack和JVM Stack发挥的作用十分类似，区别是JVM stack为虚拟机Java方法(也就是字节码)服务，本地方法栈则是为虚拟机使用到的Native方法服务。</p>
 <h4 id="4-java堆"><a href="#4-java堆" class="headerlink" title="4.java堆"></a>4.java堆</h4><p>对于java应用程序来说，Java heap是虚拟机所管理内存中最大的一块，是被所有内存共享的一块内存区域，在<strong>虚拟机启动时创建</strong>。存放的是java对象实例，数组。<br>Java堆是GC管理的内存区域。从内存回收的角度看，大部分是基于分代收集理论设计的，所以java堆中经常出现”新生代”，”老年代”，”永久代”，”Eden空间”,”From survivor空间”,”to survivor空间”等名词。<br>如果从内存分配的角度看，所有的线程共享的java堆中可以划分出很多线程私有的分配缓冲区(Thread local Allocation Buffer,TLAB),以提升对象分配时的效率。<br>java堆既可以实现成固定大小，也可以是可扩展的，不过当前主流的java虚拟机都是按照可扩展来实现的(通过参数-Xmx和-Xms设定)。如果java堆中没有内存完成实例分配，并且也无法拓展时，JVM会抛出<strong>OutOfMemoryError</strong>。</p>
 <h4 id="5-方法区"><a href="#5-方法区" class="headerlink" title="5.方法区"></a>5.方法区</h4><p>method area也是各个线程共享的内存区域，它用于存储已被虚拟机加载的<strong>类型信息，常量，静态变量，即时编译器编译后的代码缓存</strong>等数据。相对而言，垃圾收集行为在这个区域比较少出现，这区域的内存回收目标主要是针对常量池的会后和类型的卸载。  </p>
-<h4 id="6-运行是常量池"><a href="#6-运行是常量池" class="headerlink" title="6.运行是常量池"></a>6.运行是常量池</h4><p>Runtime COnstant Pool是方法区的一部分。Class文件中除了有类的版本，字段，方法，接口等描述信息外，还有一项信息是<strong>常量池表(Constant Pool Table)</strong>，用于存放编译时期生成的各种字面量与符号引用，这个部分的内容在类加载后存放到方法区的运行时常量池中。<br>运行时常量池相对于class文件常量池的另外一个重要特性是具备动态性，java语言不要求常量一定只有编译期才能产生，这种特性被开发人员利用的比较多的是String类的intern()方法。</p>
+<h4 id="6-运行时常量池"><a href="#6-运行时常量池" class="headerlink" title="6.运行时常量池"></a>6.运行时常量池</h4><p>Runtime COnstant Pool是方法区的一部分。Class文件中除了有类的版本，字段，方法，接口等描述信息外，还有一项信息是<strong>常量池表(Constant Pool Table)</strong>，用于存放编译时期生成的各种字面量与符号引用，这个部分的内容在类加载后存放到方法区的运行时常量池中。<br>运行时常量池相对于class文件常量池的另外一个重要特性是具备动态性，java语言不要求常量一定只有编译期才能产生，这种特性被开发人员利用的比较多的是String类的intern()方法。</p>
 <h3 id="end"><a href="#end" class="headerlink" title="end!"></a><center>end!</center></h3>
       
 
@@ -340,6 +340,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2020/JVM%E4%B9%8B%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%92%8C%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          JVM之垃圾收集和内存分配
+        
+      </div>
+    </a>
+  
   
     <a href="/2020/UML%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">UML总结</div>
@@ -369,7 +378,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">1.程序计数器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-JVM%E6%A0%88"><span class="toc-number">2.</span> <span class="toc-text">2.JVM栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="toc-number">3.</span> <span class="toc-text">3.本地方法栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-java%E5%A0%86"><span class="toc-number">4.</span> <span class="toc-text">4.java堆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="toc-number">5.</span> <span class="toc-text">5.方法区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E8%BF%90%E8%A1%8C%E6%98%AF%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="toc-number">6.</span> <span class="toc-text">6.运行是常量池</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#end"><span class="toc-number"></span> <span class="toc-text">end!</span></a>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">1.程序计数器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-JVM%E6%A0%88"><span class="toc-number">2.</span> <span class="toc-text">2.JVM栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88"><span class="toc-number">3.</span> <span class="toc-text">3.本地方法栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-java%E5%A0%86"><span class="toc-number">4.</span> <span class="toc-text">4.java堆</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="toc-number">5.</span> <span class="toc-text">5.方法区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E8%BF%90%E8%A1%8C%E6%97%B6%E5%B8%B8%E9%87%8F%E6%B1%A0"><span class="toc-number">6.</span> <span class="toc-text">6.运行时常量池</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#end"><span class="toc-number"></span> <span class="toc-text">end!</span></a>
                     </div>
                 </span>
             </div>
