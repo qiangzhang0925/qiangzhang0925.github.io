@@ -6,24 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://georgezhang.top">
-  <title>拥塞控制之BBR | flipped的个人博客</title>
+  <title>JVM之线程安全 | flipped的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="之前用vultr搭建vps的时候用到过BBR加速，这篇文章深入介绍一下拥塞控制BBR的算法。">
+  <meta name="description" content="这篇文章介绍JVM中线程安全以及锁优化的相关内容。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="拥塞控制之BBR">
-<meta property="og:url" content="https://georgezhang.top/2020/%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E4%B9%8BBBR/index.html">
+<meta property="og:title" content="JVM之线程安全">
+<meta property="og:url" content="https://georgezhang.top/2020/JVM%E4%B9%8B%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/index.html">
 <meta property="og:site_name" content="flipped的个人博客">
-<meta property="og:description" content="之前用vultr搭建vps的时候用到过BBR加速，这篇文章深入介绍一下拥塞控制BBR的算法。">
+<meta property="og:description" content="这篇文章介绍JVM中线程安全以及锁优化的相关内容。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825190958.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825193305.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825193525.png">
-<meta property="article:published_time" content="2020-08-25T10:39:35.000Z">
-<meta property="article:modified_time" content="2020-08-25T12:09:07.917Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200929222504.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200929223241.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200929223724.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200929224433.png">
+<meta property="article:published_time" content="2020-09-28T07:40:36.000Z">
+<meta property="article:modified_time" content="2020-09-29T14:45:01.391Z">
 <meta property="article:author" content="george.zhang">
-<meta property="article:tag" content="拥塞控制">
+<meta property="article:tag" content="JVM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825190958.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200929222504.png">
   
     <link rel="alternative" href="/atom.xml" title="flipped的个人博客" type="application/atom+xml">
   
@@ -187,20 +188,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-拥塞控制之BBR" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-JVM之线程安全" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      拥塞控制之BBR
+      JVM之线程安全
     </h1>
   
 
         
-        <a href="/2020/%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E4%B9%8BBBR/" class="archive-article-date">
-  	<time datetime="2020-08-25T10:39:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-25</time>
+        <a href="/2020/JVM%E4%B9%8B%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" class="archive-article-date">
+  	<time datetime="2020-09-28T07:40:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-28</time>
 </a>
         
       </header>
@@ -208,27 +209,65 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>之前用vultr搭建vps的时候用到过BBR加速，这篇文章深入介绍一下拥塞控制BBR的算法。<br><a id="more"></a></p>
+<p>这篇文章介绍JVM中线程安全以及锁优化的相关内容。</p>
 </blockquote>
-<p>&ensp;&ensp;BBR是Google在2016年提出的一种拥塞控制算法。丢包即拥塞的思想已经沿用了很多年，很多拥塞控制算法也是基于此的，比如当前Linux kernel的默认拥塞控制算法CUBIC，还有Reno都是基于这一思想进行的拥塞控制。<br><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825190958.png" align="center" /><br>&ensp;&ensp;如上图所示，第1条灰色竖线，是瓶颈路由器的缓冲队列刚刚开始积压时的节点。随着内存的不断降价，路由器设备的缓冲队列也会越来越大，CUBIC算法会造成更大的RTT时延！而BBR通过检测RTprop和BtlBw来实现拥塞控制。</p>
-<blockquote>
-<p>要达到highest throughput和lowest delay，connection必须同时满足两个条件：</p>
+<a id="more"></a>
+<h3 id="java中的线程安全"><a href="#java中的线程安全" class="headerlink" title="java中的线程安全"></a>java中的线程安全</h3><p>线程安全，相信对稍有经验的程序员来说并不陌生。网上一般的描述是：如果一个对象可以安全地被多个线程同时使用，那么它就是线程安全的。这样的定义无法从中获得有用的信息，没有可操作性。<br>《java并发实战(java concurrency in practice)》中给出一个比较恰当的定义：当多个线程同时访问一个对象时，如果不考虑这些线程在<strong>运行时环境的调度和交替执行</strong>，也不需要进行<strong>额外的同步</strong>，或者是在调用方不需要进行其他的<strong>协调操作</strong>，调用这个对象的行为都可以获得<strong>正确的结果</strong>，那就称这个对象是线程安全的。<br>可以根据线程安全的“安全程度”由强至弱排为5类：<strong>不可变、绝对线程安全、相对线程安全、线程兼容和线程对立</strong>。</p>
+<h4 id="1-不可变"><a href="#1-不可变" class="headerlink" title="1.不可变"></a>1.不可变</h4><p>不可变(Immutable)的对象一定是线程安全的。无论是对象方法的实现还是对象的调用者，都不需要再进行任何线程安全的保障措施。<br>java中，如果多线程共享数据是一个<strong>基本数据类型</strong>，那么只要在定义时使用<code>final</code>关键字修饰，那么就可以保证它是不可变的。如果共享数据是一个对象，那就需要对象自行保证其行为不会对其状态产生任何影响才行，最简单的一种方式就是把对象里面带有状态的变量都声明为<code>final</code>。java类库API中符合不可变要求的类型有<code>String</code>,<code>java.lang.Number</code>的部分子类和枚举类型。</p>
+<h4 id="2-绝对线程安全"><a href="#2-绝对线程安全" class="headerlink" title="2.绝对线程安全"></a>2.绝对线程安全</h4><p>绝对线程安全是要完全满足上述线程安全的定义，这个定义十分严格，一个类要达到“不管运行时环境如何，调用者都不需要任何额外的同步措施”需要付出非常高昂的代价。在java API中标注自己是线程安全的类，大多数都不是绝对的线程安全。<br>以java.util.Vector为例，如果说java.util.Vector是一个线程安全的容器，相信所有的java程序员对此都不会有异议，因为它的add(),get(),size()等方法都是被<code>synchronized</code>修饰的,尽管这样效率不高，但保证了具备原子性、可见性和有序性。不过，即使它所有的方法都是被修饰成synchronized，也不意味着调用它的时候就永远也不需要同步手段了。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对Vector线程安全的测试</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Vector&lt;Integer&gt; vector = <span class="keyword">new</span> Vector&lt;Integer&gt;();</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">            vector.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">        Thread removeThread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">            <span class="meta">@override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;vector.size();i++)&#123;</span><br><span class="line">                    vector.remove(i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        Thread printThread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">            <span class="meta">@override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;vector.size();i++)&#123;</span><br><span class="line">                    System.out.println(vector.get(i));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        removeThread.start();</span><br><span class="line">        printThread.start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//不要产生过多的线程，否则会导致操作系统假死</span></span><br><span class="line">        <span class="keyword">while</span>(Thread.activeCount()&gt;<span class="number">20</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure><br>上面这段代码可能抛出<code>ArrayIndexOutofBoundsException</code>的异常。尽管这里使用的get(),remove(),size()方法都是同步的，但是在多线程的环境中，如果不在方法调用端做额外的同步措施，使用这段代码仍然是不安全的。原因是：如果另一个进程恰好在错误的时间删除了一个元素，导致序号i已经不再可用，再用i访问数组就会抛出<code>ArrayIndexOutofBoundsException</code>的异常。<br>假如Vector一定要做到绝对的线程安全，那就必须在它内部维护<strong>一组一致性的快照</strong>访问才行，每一次对其中的元素进行改动都要产生新的快照，这样要付出的时间和空间的成本都是非常大的。</p>
+<h4 id="3-相对线程安全"><a href="#3-相对线程安全" class="headerlink" title="3.相对线程安全"></a>3.相对线程安全</h4><p>相对线程安全就是我们通常意义上所讲的线程安全，它需要保证对这个对象<strong>单次的操作</strong>是线程安全的，我们在调用的时候不需要进行额外的保障措施，但是对于一些特定顺序的连续调用，就可能需要在调用端使用额外的同步手段来保证调用的正确性。上面的Vector的代码就是相对线程安全的例子。<br>在Java中，大部分声称线程安全的类都属于这种类型，例如Vector，HashTable，Collection的synchronizedCollectio()的方法包装的集合。</p>
+<h4 id="4-线程兼容"><a href="#4-线程兼容" class="headerlink" title="4.线程兼容"></a>4.线程兼容</h4><p>线程兼容指的是对象本身并不是线程安全的，但是可以通过在调用端正确地使用同步手段来保证对象在并发环境中可以安全地使用。我们平常说的一个类线程不安全，通常指的是这种情况。</p>
+<h4 id="5-线程对立"><a href="#5-线程对立" class="headerlink" title="5.线程对立"></a>5.线程对立</h4><p>线程对立是指不管调用端是否采取同步措施，都无法在多线程环境中并发地使用代码。一个线程对立的例子是Thread类的suspend()和resume()方法。如果有两个线程同时持有一个线程的对象，一个尝试去中断线程，一个尝试去恢复线程，无论调用时是否进行了同步，目标线程都存在死锁的风险：假如suspend()中断的线程就是即将要执行resume()的那个线程，那就肯定要产生死锁了。常见的线程对立的操作还有System.setIn(),System.setOut()和System.runFinalizersOnExit()等。</p>
+<h3 id="线程安全的实现方法"><a href="#线程安全的实现方法" class="headerlink" title="线程安全的实现方法"></a>线程安全的实现方法</h3><h4 id="1-互斥同步"><a href="#1-互斥同步" class="headerlink" title="1.互斥同步"></a>1.互斥同步</h4><p>互斥同步(Mutual Exclusion &amp; Synchronization)是最常见也是最主要的并发正确性保障手段。<strong>同步</strong>是指在多个线程并发访问<strong>共享数据</strong>时，保证共享数据在同一时刻只被一条(或者是一些，当使用信号量的时候)线程使用。而<strong>互斥</strong>是实现同步的一种手段，<strong>临界区(Critical Section)、互斥量(Mutex)和信号量(Semaphore)</strong>都是常见的互斥实现方式。因此在”互斥同步”四个字中，互斥是因，同步是果；互斥是手段，同步是目的。<br>在java中，最基本的互斥同步的手段就是<code>synchronized</code>关键字,这是一种<strong>块结构(Block structures)</strong>的同步语法。synchronized关键字进过javac编译之后，会在同步块的前后分别形成<code>monitorenter</code>和<code>monitorexit</code>这两个字节码指令。这两个字节码指令都需要一个<strong>reference类型</strong>的参数来指明要锁定和解锁的对象。<br>根据java虚拟机规范的要求，在执行monitorenter指令时，首先尝试去获取对象的锁。如果这个对象没有被锁定，或者当前线程已经持有了那个对象的锁，就把锁的计数器的指增加1，而在执行monitorexit指令时会将锁计数器的值减1.一旦计数器的值为0，锁随即就被释放了。如果获取对象锁失败，那当前线程就应当被阻塞等待，直到请求锁定的对象被持有它的线程释放为止。<br>从功能上看，根据以上的描述，可以得出两个关于synchronized的直接推论，这是使用它时需要特别注意的：</p>
 <ul>
-<li>包的瓶颈到达速率等于瓶颈带宽</li>
-<li>总的inflight数据等于带宽时延积</li>
+<li>被synchronized修饰的同步块对<strong>同一条线程</strong>来说是可以<strong>重入</strong>的。这意味着同一线程反复进入同步块也不会出现自己把自己锁死的情况</li>
+<li>被synchronized修饰的同步块在持有锁的线程<strong>执行完毕并释放锁之前</strong>，会无条件地<strong>阻塞</strong>后面其他线程的进入。这意味着无法像处理数据库中的锁那样，强制已获取锁的线程释放锁；也无法强制正在等待锁的线程中断等待或者超时退出。<br>从执行成本来看，持有锁是一个<strong>重量级(heavy-weight)</strong>的操作。在主流Java虚拟机的实现中，java的线程是映射到操作系统的原生内核线程之上的，如果要阻塞或唤醒一条线程，则需要操作系统来帮忙完成，这就不可避免地陷入<strong>用户态到核心态</strong>的转换中，进行这种状态转换需要消耗很多的处理器时间。尤其对于代码特别简单的同步块(比如被synchronized修饰的getter()和setter()方法)，状态转换消耗的时间甚至会比用户代码本身执行的时间还要长。</li>
 </ul>
-</blockquote>
-<p>因为BtlBw和RTprop在整个过程中一直是变动的，所以需要一直不断的测量。在任何时刻t：</p>
-<script type="math/tex; mode=display">R T T_{t}=R T \text { prop }_{t}+\eta_{t}</script><p>这里η&gt;=0表示‘noise’，比如接收端的延迟ack策略，ack aggregation策略等。因此RTprop是不可能准确测量的，只能估算，像大多数算法测量最小RTT做的那样：</p>
-<script type="math/tex; mode=display">\text { RTprop }^{\prime}=R T \text { prop }+\min \left(\eta_{t}\right)=\min \left(R T T_{t}\right) \quad \forall t \in\left[T-W_{R}, T\right]</script><p>根据从receiver返回的ack，我们可以知道当前ack确认数据包的RTT和离开sender留存在网络中的确切数据包数。因为我们可以准确知道当前的发送序号snd_nxt，以及其确认序号snd_una，如果开启了SACK也可以准确知道，只不过需要walk一遍SACK段。这样我们便可以测量平均delivery rate:deliveryRate=Δdelivered/Δt。<strong>在这个过程中delivered是可以准确知道的，而Δt则会大于真实interval</strong>，因为受网络噪声的影响，所以deliveryrate&lt;=bottleneckrate，那么我们可以这样评估BtlBw:</p>
-<script type="math/tex; mode=display">{B t l B} w^{\prime}=\max \left(\text {delivery Rate}_{t}\right) \quad \forall t \in\left[T-W_{B}, T\right]</script><p>&ensp;&ensp;综上所述，BBR的组成：</p>
+<p>除了synchronized关键字以外，自JDK5起，java类库中新提供了<code>java.util.concurrent包(J.U.C包)</code>。其中的<code>java.util.concurrent.locks.Lock</code>接口便成了Java的另一种全新的互斥同步手段。基于Lock接口，用户能够以非块结构来实现互斥同步。</p>
+<p>重入锁(ReentrantLock)是Lock接口最常见的一种实现。重入锁相比synchronized增加了一些高级功能，主要有以下三项：等待可中断、公平锁和锁绑定多个条件。</p>
 <ul>
-<li>即时带宽的计算：应答了多少数据，记为<strong><em>delivered</em></strong>；应答delivered这么多数据所用的时间，记为<strong><em>interval_us</em></strong>，两者相除</li>
-<li>pipe状态机：<br><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825193305.png" alt="" width="700" height="400" align="center" /></li>
-<li>pacing rate和cwnd的计算：pacing rate是使用时间窗口内(默认10轮采样)最大BW。上一次采样的即时BW，用它来在可能的情况下更新时间窗口内的BW采样值集合。这次能否按照这个时间窗口内最大BW发送数据呢？这样看当前的增益系数的值，设为G，那么BW<em>G就是pacing rate的值。我们采用BDP</em>G’就算出了cwnd，这里的G’是cwnd的增益系数，与带宽增益系数含义一样，根据bbr的状态机来获取。<br><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200825193525.png" alt=""></li>
+<li>等待可中断：指持有锁的线程长期不释放锁的时候，正在等待的线程可以选择放弃等待，改为处理其他事情。</li>
+<li>公平锁：指多个线程在等待同一个锁时，必须按照申请锁的时间顺序来依次获得锁。重入锁在默认情况下也是非公平的，但是可以带有布尔值的构造函数要求使用公平锁，但是会导致性能急剧下降，会明显影响吞吐量。</li>
+<li>锁绑定多个条件：是指以一个重入锁对象可以同时绑定多个Condition对象。在synchronized中，锁对象的<code>wait()</code>跟它的<code>notify()</code>和<code>notifyAll()</code>方法可以实现一个隐藏的条件，如果要和多于一个的条件关联的时候，就不得不额外添加另外一个锁；而重入锁则无需这样做，多次条用<code>newCondition()</code>方法即可。</li>
 </ul>
-<p>每一个ack都会提供一个新的RTT和delivery rate值，用来更新RTprop和BtlBw，伪代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">onAck</span><span class="params">(packet)</span></span></span><br><span class="line"><span class="function">    rtt </span>= now - packet.sendtime</span><br><span class="line">    update_min_filter(RTpropFilter,rtt)</span><br><span class="line">    delivered += packet.size</span><br><span class="line">    delivered_time = now</span><br><span class="line">    deliveredRate = (delivered - packet.delivered) / (delivered_time - packet.delivered_time)</span><br><span class="line">    <span class="keyword">if</span> (deliveryRate &gt; BtlBwFilter.currentMax || packet.app_limited)</span><br><span class="line">        update_max_filter(BtlBwFilter,deliveryRate)</span><br><span class="line">    <span class="keyword">if</span> (app_limited_until &gt; <span class="number">0</span>)</span><br><span class="line">        app_limited_until = app_limited_until - packet.size</span><br></pre></td></tr></table></figure><br>为了使packet-arrival rate和bottleneck link’s departure rate相匹配，BBR必须paces每一个数据包。pacing_rate是BBR的主要控制参数，另外一个参数是cwnd_gain，用来限定inflight为小倍数的BDP，伪代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">send</span><span class="params">(packet)</span></span></span><br><span class="line"><span class="function">    bdp </span>= BtlBwFilter.currentMax * RTpropFilter.currentMin</span><br><span class="line">    <span class="keyword">if</span>( infilght &gt;= cwnd_gain * bdp)</span><br><span class="line">        <span class="comment">// wait for ack or retransmission timeout</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">if</span> (now &gt;= nextSendTime)</span><br><span class="line">        packet = nextPacketToSend()</span><br><span class="line">        <span class="keyword">if</span> (!packet)</span><br><span class="line">            app_limited_until = inflight</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        packet.app_limited = (app_limted_until &gt; <span class="number">0</span>)</span><br><span class="line">        packet.sendtime = now</span><br><span class="line">        packet.delivered = delivered</span><br><span class="line">        packet.delivered_time = delivered_time</span><br><span class="line">        ship(packet)</span><br><span class="line">        nextSendTime = now + packet.size / (pacing_gain * BtlBwFIlter.currentMax)</span><br><span class="line">    timerCallbackAt(sned,nextSendTime)</span><br></pre></td></tr></table></figure><br><strong>pacing_gain[5/4,3/4,1,1,1,1,1,1]</strong>便是决定链路速率调整的关键周期数组。</p>
-<h3 id="end"><a href="#end" class="headerlink" title="end!"></a><center>end!</center></h3>
+<h4 id="2-非阻塞同步"><a href="#2-非阻塞同步" class="headerlink" title="2.非阻塞同步"></a>2.非阻塞同步</h4><p>互斥同步面临的主要问题是进行线程阻塞和唤醒所带来的性能开销，因此这种同步也被称为阻塞同步。<br>从解决问题的方式看，互斥同步属于一种悲观的并发策略，其总是认为只要不去做正确的同步措施(例如加锁)，那就肯定会出问题；无论共享的数据是否真的会出现竞争，它都会进行加锁。<br>随着硬件指令集的发展，我们有了另外的一种选择：<strong>基于冲突检测的乐观并发策略</strong>，通俗地说，就是不管风险，先进行操作，如果没有其他线程争用共享数据，那么操作成功。如果发生冲突，那就进行其他的补偿措施，最常用的补偿措施是不断的重试，直到出现没有竞争的共享的数据为止。这种乐观并发策略的实现不再需要把线程阻塞挂起，因此这种同步被称为<strong>非阻塞同步</strong>，使用这种措施的代码也常被称为无锁编程。<br>操作和冲突检测这两个步骤需要具备<strong>原子性</strong>。我们靠硬件来实现，硬件保证某些从语义上看起来需要多次操作的行为可以只通过一条<strong>处理器指令</strong>就能完成：</p>
+<ul>
+<li>测试并设置(Test-and-Set)</li>
+<li>获取并增加(Fetch-and-Increment)</li>
+<li>交换(Swap)</li>
+<li>比较并交换(Compare-and-Swap,CAS)</li>
+<li>加载链接/条件存储(Loag-Linked/Store-Conditional,LL/SC)</li>
+</ul>
+<p>CAS指令需要有3个操作数，分别是<strong>内存位置V，旧的预期值A，和准备设置的新值B</strong>。CAS指令执行时，当且仅当V符合A时，处理器才会用B更新V的值，否则它就不执行更新。但是不管都是更新了V，都会返回V的旧值，上述过程是一个原子操作。<br>CAS存在一个逻辑漏洞：如果一个变量V初次读取的时候是A值，并且在准备赋值的时候检查到它的值仍然是A，那就能说明它的值没有被其他线程改变过了吗？这是不能的，因为如果在这段时间它的值曾经被改成B，后来又被改回A，那CAS操作就会误认为它从来没有被改变过。这个漏洞称为CAS操作的“ABA”问题。J.U.C包为了解决这个问题，提供了一个带有标记的原子引用类<code>AtomicStampedReference</code>,它可以通过控制变量值的版本来保证CAS的正确性。不过目前来说这个类处于相当鸡肋的位置，大部分情况下ABA问题不会影响程序并发的正确性，如果需要解决ABA问题，该用传统的互斥同步可能会比原子类更为高效。</p>
+<h4 id="3-无同步方案"><a href="#3-无同步方案" class="headerlink" title="3.无同步方案"></a>3.无同步方案</h4><p>要保证线程安全，也并非一定要进行阻塞或非阻塞同步，同步于线程安全两者没有必然的联系。同步只是保障存在共享数据争用时正确性的手段，如果能够让一个方法就不涉及共享数据，那它自然就不需要任何同步措施保证其正确性，因此有一些代码<strong>天生就是线程安全的</strong>。</p>
+<ul>
+<li>可重入代码，又称为纯代码，是指可以在代码执行的任何时刻中断它，转而去执行另外一段代码(包括递归调用它本身)，而在控制权返回后，原来的程序不会出现任何错误，也不会对结果有所影响。可重入代码有一些共同的特征：不依赖全局变量、存储在堆上的数据和公共的系统资源，用到的状态量都由参数中传入，不调用非课重入的方法等。可以通过一个比较简单的原则来<strong>判断代码是否具有可重入性</strong>：如果一个方法返回的结果是可以预测的，只要输入了相同的数据，就能返回相同的结果，那它就满足可重入性的要求，当然也是线程安全的。</li>
+<li>线程本地存储：如果一段代码中所需要的数据必须与其他代码共享，那就看看这些共享数据的代码是否能够在同一个线程中执行。如果能够保证，我们就可以把共享数据的可见范围限制在同一个线程之中，这样，无须同步也能保证线程之间不出现数据争用的问题。符合这种特点的应用并不少见，大部分使用消费队列的架构模式，比如生产者-消费者模式都会将产品的消费过程限制在一个线程中消费完，其中最重要的一种应用实例就是经典Web交互模型中的**“一个请求对应一个服务器线程”(Thread-per-request)的处理方式“。</li>
+</ul>
+<h3 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h3><p>高效并发是从JDK 5升级到JDK 6后一项重要的改进项，Hotspot虚拟机开发团队在这个版本上花了大量的资源去实现各种锁优化技术，如<strong>适应性自旋(Adaptive Spinning)、锁消除(Lock Elimination)、锁膨胀(Lock Coarsening)、轻量级锁(Lightweight Locking)、偏向锁(Biased Locking)</strong>等，这些技术都是为了在线程之间更加高效地共享数据以及解决竞争问题，从而提高程序的执行效率。</p>
+<h4 id="1-自旋锁与自适应自旋"><a href="#1-自旋锁与自适应自旋" class="headerlink" title="1.自旋锁与自适应自旋"></a>1.自旋锁与自适应自旋</h4><p>如果物理机上又一个以上的处理器或者处理器核心，能让两个或者以上的线程同时并行执行，我们就可以让后面请求锁的那个线程“稍微等一会”，但是不放弃处理器的执行时间，看看持有锁的线程是否很快就会释放锁。为了让位线程等待，我们只需要让线程执行一个忙循环(自旋)，这项技术就是所谓的自旋锁。自旋默认次数是10。</p>
+<p>在JDK 6中对自旋锁的优化，引入了自适应的自旋。自适应意味自旋的时间不再是固定的了，而是由前一次在同一个锁上的自旋时间及锁拥有者的状态来决定。</p>
+<h4 id="2-锁消除"><a href="#2-锁消除" class="headerlink" title="2.锁消除"></a>2.锁消除</h4><p>锁消除是指虚拟机<strong>即时编译器在运行时</strong>，对一些代码要求同步，但是对被检测代不可能存在共享数据竞争的锁<strong>进行消除</strong>。锁消除的主要判定依据来源于<strong>逃逸分析</strong>的数据支持，如果判断到一段代码中，在堆上的所有数据都不会逃逸出去被其他线程访问到，那就可以把他们当作是栈上的数据对待，认为他们是线程私有的，同步加锁自然就无须再进行。</p>
+<h4 id="3-锁粗化"><a href="#3-锁粗化" class="headerlink" title="3.锁粗化"></a>3.锁粗化</h4><p>原则上，我们在编写代码时，总是推荐将同步块的作用域<strong>限制得尽量小</strong>——只在共享数据的实际作用域中才进行同步，这样是为了使得需要同步的操作数量尽可能变少，就是存在锁竞争，等待锁的线程也能尽快地拿到锁。</p>
+<p>大多数情况下，上面的原则是正确的，但是如果一系列的连续操作都对同一个对象反复加锁和解锁，甚至加锁操作是出现在循环体之中的，那即使没有线程竞争，频繁地进行互斥同步的操作也会导致不必要的性能损耗。如果虚拟机探测到有<strong>这样一串零碎的操作都对同一个对象加锁</strong>，将会把加锁的同步的范围<strong>扩展(粗化)到整个操作序列的外部</strong>。</p>
+<h4 id="4-轻量级锁"><a href="#4-轻量级锁" class="headerlink" title="4.轻量级锁"></a>4.轻量级锁</h4><p>轻量级锁设计的初衷是在没有多线程竞争的前提下，减少传统的重量级锁使用操作系统互斥量产生的性能消耗。</p>
+<p>要理解轻量级锁，以及后面偏向锁的原理和运作过程，必须要对Hotspot虚拟机对象的内存布局(尤其是对象头部分)有所了解。Hotspot虚拟机的对象头分为两个部分，第一部分用于存储对象自身运行时数据(HashCode,GC分代年龄等)，官方称为“Mark Word”。另一部分用于存储指向方法区对象类型数据的指针，如果是数组对象，还会有一个额外的部分用于存储数组长度。</p>
+<p><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200929222504.png" alt=""></p>
+<p>在代码即将进入同步块的时候，如果此同步对象没有被锁定(锁标志位为01)，虚拟机首先将在当前线程的栈帧中建立一个名为锁记录(lock record)的空间，用于存储对象目前的Mark Word的拷贝(官方为这份拷贝加了一个Displace前缀)，这个时候线程堆栈与对象头的状态如图：</p>
+<p><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200929223241.png" alt=""></p>
+<p>然后，虚拟机将使用CAS操作尝试把对象的Mark Word更新为指向Lock Record的指针。如果这个操作成功了，即代表该线程拥有了这个对象的锁，并且对象Mark Word的锁标识位将转变为00，表示此对象处于轻量级锁定的状态。这个时候线程堆栈与对象头的状态如图所示：</p>
+<p><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200929223724.png" alt=""></p>
+<p>如果这个更新操作失败了，那就意味着至少存在一条线程与当前线程竞争获取该对象的锁。虚拟 机首先会检查对象的Mark Word是否指向当前线程的栈帧，如果是，说明当前线程已经拥有了这个对 象的锁，那直接进入同步块继续执行就可以了，否则就说明这个锁对象已经被其他线程抢占了。如果 出现两条以上的线程争用同一个锁的情况，那轻量级锁就不再有效，必须要膨胀为重量级锁，锁标志 的状态值变为“10”，此时Mark Word中存储的就是指向重量级锁(互斥量)的指针，后面等待锁的线 程也必须进入阻塞状态。</p>
+<p>上面描述的是轻量级锁的加锁过程，它的解锁过程也同样是通过CAS操作来进行的，如果对象的 Mark Word仍然指向线程的锁记录，那就用CAS操作把对象当前的Mark Word和线程中复制的Displaced Mark Word替换回来。假如能够成功替换，那整个同步过程就顺利完成了;如果替换失败，则说明有 其他线程尝试过获取该锁，就要在释放锁的同时，唤醒被挂起的线程。</p>
+<p>轻量级锁能提升程序同步性能的依据是“对于绝大部分的锁，在整个同步周期内都是不存在竞争 的”这一经验法则。如果没有竞争，轻量级锁便通过CAS操作成功避免了使用互斥量的开销;但如果确 实存在锁竞争，除了互斥量的本身开销外，还额外发生了CAS操作的开销。因此在有竞争的情况下， 轻量级锁反而会比传统的重量级锁更慢。</p>
+<h4 id="5-偏向锁"><a href="#5-偏向锁" class="headerlink" title="5.偏向锁"></a>5.偏向锁</h4><p>偏向锁也是JDK 6中引入的一项锁优化措施，它的目的是消除数据在无竞争情况下的同步原语， 进一步提高程序的运行性能。如果说轻量级锁是在无竞争的情况下使用CAS操作去消除同步使用的互 斥量，那偏向锁就是在无竞争的情况下把整个同步都消除掉，连CAS操作都不去做了。</p>
+<p>偏向锁中的“偏”，就是偏心的“偏”、偏袒的“偏”。它的意思是这个锁会偏向于第一个获得它的线 程，如果在接下来的执行过程中，该锁一直没有被其他的线程获取，则持有偏向锁的线程将永远不需 要再进行同步。</p>
+<p>假设当前虚拟机启用了偏向锁(启用参数-XX:+UseBiased Locking，这是自JDK 6 起HotSpot虚拟机的默认值)，那么当锁对象第一次被线程获取的时候，虚拟机将会把对象头中的标志 位设置为“01”、把偏向模式设置为“1”，表示进入偏向模式。同时使用CAS操作把获取到这个锁的线程 的ID记录在对象的Mark Word之中。如果CAS操作成功，持有偏向锁的线程以后每次进入这个锁相关 的同步块时，虚拟机都可以不再进行任何同步操作(例如加锁、解锁及对Mark Word的更新操作 等)。</p>
+<p>一旦出现另外一个线程去尝试获取这个锁的情况，偏向模式就马上宣告结束。根据锁对象目前是 否处于被锁定的状态决定是否撤销偏向(偏向模式设置为“ 0”)，撤销后标志位恢复到未锁定(标志位 为“ 01”)或轻量级锁定(标志位为“ 00”)的状态，后续的同步操作就按照上面介绍的轻量级锁那样去 执行。偏向锁、轻量级锁的状态转化及对象Mark Word的关系如图：</p>
+<p><img src="https://raw.githubusercontent.com/qiangzhang0925/images/master/img/20200929224433.png" alt=""></p>
+<p>当对象进入偏向状态的时候，Mark Word大部分的空间(23个比特)都用于存储持有锁的线程ID了，这部分空间占用了原有存储对象哈希码的位置，那原 来对象的哈希码怎么办呢?</p>
+<p>在Java语言里面一个对象如果计算过哈希码，就应该一直保持该值不变(强烈推荐但不强制，因 为用户可以重载hashCode()方法按自己的意愿返回哈希码)，否则很多依赖对象哈希码的API都可能存 在出错风险。而作为绝大多数对象哈希码来源的O bject ::has hCode()方法，返回的是对象的一致性哈希 码(Identity Hash Code)，这个值是能强制保证不变的，它通过在对象头中存储计算结果来保证第一 次计算之后，再次调用该方法取到的哈希码值永远不会再发生改变。因此，当一个对象已经计算过一 致性哈希码后，它就再也无法进入偏向锁状态了;而当一个对象当前正处于偏向锁状态，又收到需要<br>计算其一致性哈希码请求时，它的偏向状态会被立即撤销，并且锁会膨胀为重量级锁。在重量级锁 的实现中，对象头指向了重量级锁的位置，代表重量级锁的ObjectM onitor类里有字段可以记录非加锁 状态(标志位为“01”)下的Mark Word，其中自然可以存储原来的哈希码。<br>偏向锁可以提高带有同步但无竞争的程序性能，但它同样是一个带有效益权衡(Trade Off)性质 的优化，也就是说它并非总是对程序运行有利。如果程序中大多数的锁都总是被多个不同的线程访 问，那偏向模式就是多余的。在具体问题具体分析的前提下，有时候使用参数-XX:- UseBiasedLocking来禁止偏向锁优化反而可以提升性能。</p>
+<h3 id="end-lt-cneter-gt"><a href="#end-lt-cneter-gt" class="headerlink" title="end!&lt;/cneter&gt;"></a><center>end!&lt;/cneter&gt;</h3>
       
 
       
@@ -267,7 +306,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">拥塞控制</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
         		</li>
       		
 		</ul>
@@ -279,7 +318,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/网络//" class="article-tag-list-link color3">网络</a>
+        			<a href="/categories/编程//" class="article-tag-list-link color3">编程</a>
         		</li>
       		
 		</ul>
@@ -334,7 +373,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://georgezhang.top/2020/%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E4%B9%8BBBR/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://georgezhang.top/2020/JVM%E4%B9%8B%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -348,18 +387,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/%E5%86%B3%E7%AD%96%E6%A0%91%E5%92%8C%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          决策树和随机森林
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/%E6%9D%AD%E5%B7%9E%E4%B9%8B%E6%97%85/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">杭州之旅</div>
+    <a href="/2020/JVM%E4%B9%8B%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%92%8C%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JVM之垃圾收集和内存分配</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -386,7 +416,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#end"><span class="toc-number">1.</span> <span class="toc-text">end!</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#java%E4%B8%AD%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="toc-number">1.</span> <span class="toc-text">java中的线程安全</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%B8%8D%E5%8F%AF%E5%8F%98"><span class="toc-number">1.1.</span> <span class="toc-text">1.不可变</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%BB%9D%E5%AF%B9%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="toc-number">1.2.</span> <span class="toc-text">2.绝对线程安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%9B%B8%E5%AF%B9%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="toc-number">1.3.</span> <span class="toc-text">3.相对线程安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E7%BA%BF%E7%A8%8B%E5%85%BC%E5%AE%B9"><span class="toc-number">1.4.</span> <span class="toc-text">4.线程兼容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E7%BA%BF%E7%A8%8B%E5%AF%B9%E7%AB%8B"><span class="toc-number">1.5.</span> <span class="toc-text">5.线程对立</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">线程安全的实现方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BA%92%E6%96%A5%E5%90%8C%E6%AD%A5"><span class="toc-number">2.1.</span> <span class="toc-text">1.互斥同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%90%8C%E6%AD%A5"><span class="toc-number">2.2.</span> <span class="toc-text">2.非阻塞同步</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%97%A0%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88"><span class="toc-number">2.3.</span> <span class="toc-text">3.无同步方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81%E4%BC%98%E5%8C%96"><span class="toc-number">3.</span> <span class="toc-text">锁优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%87%AA%E6%97%8B%E9%94%81%E4%B8%8E%E8%87%AA%E9%80%82%E5%BA%94%E8%87%AA%E6%97%8B"><span class="toc-number">3.1.</span> <span class="toc-text">1.自旋锁与自适应自旋</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%94%81%E6%B6%88%E9%99%A4"><span class="toc-number">3.2.</span> <span class="toc-text">2.锁消除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%94%81%E7%B2%97%E5%8C%96"><span class="toc-number">3.3.</span> <span class="toc-text">3.锁粗化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="toc-number">3.4.</span> <span class="toc-text">4.轻量级锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%81%8F%E5%90%91%E9%94%81"><span class="toc-number">3.5.</span> <span class="toc-text">5.偏向锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#end-lt-cneter-gt"><span class="toc-number">4.</span> <span class="toc-text">end!&lt;&#x2F;cneter&gt;</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -419,7 +449,7 @@ if(true){
   	repo: 'qiangzhang0925.github.io',
   	owner: 'qiangzhang0925',
   	admin: ['qiangzhang0925'],
-  	id: 'Tue Aug 25 2020 18:39:35 GMT+0800',
+  	id: 'Mon Sep 28 2020 15:40:36 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
