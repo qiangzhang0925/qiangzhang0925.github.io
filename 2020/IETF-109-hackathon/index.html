@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://georgezhang.top">
-  <title>Tag: 旅游 | flipped的个人博客</title>
+  <title>IETF 109 hackathon | flipped的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="life gonna be like this way">
-<meta property="og:type" content="website">
-<meta property="og:title" content="flipped的个人博客">
-<meta property="og:url" content="https://georgezhang.top/tags/%E6%97%85%E6%B8%B8/index.html">
+  <meta name="description" content="结束了之前关于网络拥塞控制的比赛后，最近一直在忙着项目，今天也是IETF 109 Hackathon会议的第一天，我们做的项目也需要在会上进行展示，这片文章记录了关于项目的概况和我近期的工作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IETF 109 hackathon">
+<meta property="og:url" content="https://georgezhang.top/2020/IETF-109-hackathon/index.html">
 <meta property="og:site_name" content="flipped的个人博客">
-<meta property="og:description" content="life gonna be like this way">
+<meta property="og:description" content="结束了之前关于网络拥塞控制的比赛后，最近一直在忙着项目，今天也是IETF 109 Hackathon会议的第一天，我们做的项目也需要在会上进行展示，这片文章记录了关于项目的概况和我近期的工作。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-09T01:23:17.000Z">
+<meta property="article:modified_time" content="2020-11-09T02:38:59.121Z">
 <meta property="article:author" content="george.zhang">
-<meta property="article:tag" content="SEU计算机在读硕士">
+<meta property="article:tag" content="YANG">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="flipped的个人博客" type="application/atom+xml">
@@ -181,71 +184,233 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-IETF-109-hackathon" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/%E6%9D%AD%E5%B7%9E%E4%B9%8B%E6%97%85/" class="archive-article-date">
-  	<time datetime="2020-08-23T08:21:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-23</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/%E6%9D%AD%E5%B7%9E%E4%B9%8B%E6%97%85/">杭州之旅</a>
+    <h1 class="article-title" itemprop="name">
+      IETF 109 hackathon
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/IETF-109-hackathon/" class="archive-article-date">
+  	<time datetime="2020-11-09T01:23:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>结束了之前关于网络拥塞控制的比赛后，最近一直在忙着项目，今天也是IETF 109 Hackathon会议的第一天，我们做的项目也需要在会上进行展示，这片文章记录了关于项目的概况和我近期的工作。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="项目背景介绍"><a href="#项目背景介绍" class="headerlink" title="项目背景介绍"></a>项目背景介绍</h3><p>YANG是专门为NETCONF设计的数据建模语言，用来对NETCONF协议中的配置数据和状态数据，包括NETCONF支持的RPC消息和异步通知进行建模。但是在实践中，各个厂商(juniper,cisco,huawei)的网络配置数据模型并没有统一的实现标准，都有一套自己私有的YANG模型来支持NETCONF协议对网络设备的配置和管理。YANG模型转换的需求应运而生，通过某种方式将不同模型之间产生的消息请求进行翻译转换，不需要用户进行过于复杂的操作，旨在给用户提供易用且高效的转换方案。</p>
+<h3 id="项目开发"><a href="#项目开发" class="headerlink" title="项目开发"></a>项目开发</h3><p>项目整体的开发用<code>python</code>完成代码的编写工作，关于项目依赖库和路径设置等编写<code>shell脚本</code>提供给用户自动安装的方案。项目托管在GitHub上：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/icanlab/mediator">mediator项目:</a> 目前状态为public</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/icabnlab/mediator_plugins">mediator_plugins项目:</a> 目前状态为private</li>
+</ul>
+<h3 id="演示视频的制作"><a href="#演示视频的制作" class="headerlink" title="演示视频的制作"></a>演示视频的制作</h3><p>IETF 109 Hackathon会议演示视频利用的是<code>Final cut pro X</code>进行剪辑，7个视频素材，配上字幕，最后整体的时间在10分钟左右，附上YouTube是的视频链接：<a target="_blank" rel="noopener" href="https://youtu.be/03vfwZxkA0M">IETF 109 Hackathon YANG Mediator Demo</a></p>
+<h3 id="end"><a href="#end" class="headerlink" title="end!"></a><center>end!</center></h3>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢大家的打赏！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/alipay.jpeg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">旅游</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">YANG</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/生活//" class="article-tag-list-link color3">生活</a>
+        			<a href="/categories/项目//" class="article-tag-list-link color3">项目</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://georgezhang.top/2020/IETF-109-hackathon/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/JVM%E4%B9%8B%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JVM之线程安全</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">项目背景介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91"><span class="toc-number">2.</span> <span class="toc-text">项目开发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA%E8%A7%86%E9%A2%91%E7%9A%84%E5%88%B6%E4%BD%9C"><span class="toc-number">3.</span> <span class="toc-text">演示视频的制作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#end"><span class="toc-number">4.</span> <span class="toc-text">end!</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
+  
+
+  
+
+  
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: '1710dc0379211e7325c4',
+  	clientSecret: '4acb94f64e39b7da5cd2d0d7811e5042c5824bec',
+  	repo: 'qiangzhang0925.github.io',
+  	owner: 'qiangzhang0925',
+  	admin: ['qiangzhang0925'],
+  	id: 'Mon Nov 09 2020 09:23:17 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+
     
+
+  
 
 
           </div>
@@ -272,9 +437,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
